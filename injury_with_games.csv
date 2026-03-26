@@ -1,0 +1,380 @@
+Date,Team,Acquired,player_name,Notes,injury_type,PERSON_ID,GAME_ID,SEASON_ID,GAME_DATE,days_since_last_game,valid_game_match
+2023-01-19,Blazers,, Gary Payton II,placed on IL with left calf injury,Calf,56,,,,,False
+2023-02-14,Raptors,, Gary Trent Jr.,placed on IL with strained left calf,Calf,718,,,,,False
+2023-02-13,Mavericks,, Tim Hardaway Jr.,placed on IL with tightness in right hamstring,Hamstring,896,,,,,False
+2023-03-15,Mavericks,, Tim Hardaway Jr.,placed on IL with left calf injury,Calf,896,,,,,False
+2023-03-29,Grizzlies,, Jaren Jackson Jr.,placed on IL with calf injury,Calf,1114,,,,,False
+2023-01-21,Rockets,, Jabari Smith Jr.,placed on IL with sprained right ankle,Ankle,2074,,,,,False
+2022-12-07,Lakers,, LeBron James,placed on IL with sore left ankle,Ankle,2544,22200360.0,22022.0,2022-12-06,1.0,True
+2022-12-19,Lakers,, LeBron James,placed on IL with sore left ankle,Ankle,2544,22200451.0,22022.0,2022-12-18,1.0,True
+2023-01-09,Lakers,, LeBron James,placed on IL with sore left ankle,Ankle,2544,22200595.0,22022.0,2023-01-07,2.0,True
+2023-02-09,Lakers,, LeBron James,placed on IL with sore left ankle,Ankle,2544,22200821.0,22022.0,2023-02-07,2.0,True
+2022-11-09,Pelicans,, Larry Nance Jr.,placed on IL with left knee injury,Knee,77685,,,,,False
+2022-12-18,Pelicans,, Larry Nance Jr.,placed on IL with sore right Achilles,Achilles,77685,,,,,False
+2023-02-26,Pelicans,, Larry Nance Jr.,placed on IL with sprained left ankle,Ankle,77685,,,,,False
+2022-12-20,Heat,, Kyle Lowry,placed on IL with sore left knee,Knee,200768,22200419.0,22022.0,2022-12-14,6.0,True
+2023-01-10,Heat,, Kyle Lowry,placed on IL with discomfort in left knee,Knee,200768,22200599.0,22022.0,2023-01-08,2.0,True
+2023-02-07,Heat,, Kyle Lowry,placed on IL with sore left knee,Knee,200768,22200780.0,22022.0,2023-02-02,5.0,True
+2023-03-18,Heat,, Kyle Lowry,placed on IL with sore knee,Knee,200768,22201036.0,22022.0,2023-03-15,3.0,True
+2023-04-07,Heat,, Kyle Lowry,placed on IL with sore left knee,Knee,200768,22201198.0,22022.0,2023-04-06,1.0,True
+2023-03-18,76ers,, P.J. Tucker,placed on IL with sore left ankle,Ankle,200782,,,,,False
+2023-04-07,76ers,, P.J. Tucker,placed on IL with right calf injury,Calf,200782,,,,,False
+2023-01-09,Nets,, Kevin Durant,placed on IL with sprained MCL in right knee,Knee,201142,22200599.0,22022.0,2023-01-08,1.0,True
+2023-03-11,Suns,, Kevin Durant,placed on IL with sprained left ankle,Ankle,201142,22200962.0,22022.0,2023-03-05,6.0,True
+2023-02-08,Celtics,, Al Horford,placed on IL with swollen right knee,Knee,201143,22200808.0,22022.0,2023-02-06,2.0,True
+2023-02-14,Celtics,, Al Horford,placed on IL with swollen right knee,Knee,201143,22200855.0,22022.0,2023-02-12,2.0,True
+2022-11-22,Nuggets,, Jeff Green,placed on IL with bruised right knee,Knee,201145,22200246.0,22022.0,2022-11-20,2.0,True
+2023-01-02,Knicks,, Derrick Rose,placed on IL with bruised left knee,Knee,201565,22200541.0,22022.0,2022-12-31,2.0,True
+2022-10-26,Lakers,, Russell Westbrook,placed on IL with hamstring injury,Hamstring,201566,22200037.0,22022.0,2022-10-23,3.0,True
+2023-01-26,Rockets,, Eric Gordon,placed on IL with sore right knee,Knee,201569,22200722.0,22022.0,2023-01-25,1.0,True
+2023-03-07,Mavericks,, JaVale McGee,placed on IL with sprained right ankle,Ankle,201580,,,,,False
+2023-01-05,Clippers,, Nicolas Batum,placed on IL with sprained left ankle,Ankle,201587,22200560.0,22022.0,2023-01-02,3.0,True
+2022-12-21,Bulls,, Goran Dragic,placed on IL with sore left ankle,Ankle,201609,22200462.0,22022.0,2022-12-20,1.0,True
+2023-03-06,Bucks,, Goran Dragic,placed on IL with sore left knee,Knee,201609,22200863.0,22022.0,2023-02-13,21.0,False
+2023-03-14,Bucks,, Goran Dragic,placed on IL with sore left knee,Knee,201609,22200863.0,22022.0,2023-02-13,29.0,False
+2023-03-22,76ers,, James Harden,placed on IL with sore left Achilles,Achilles,201935,,,,,False
+2023-04-07,76ers,, James Harden,placed on IL with left Achilles injury,Achilles,201935,,,,,False
+2022-10-19,Cavaliers,, Ricky Rubio,placed on IL recovering from torn ACL in left knee,ACL,201937,,,,,False
+2022-12-07,Warriors,, Stephen Curry,placed on IL with sore left ankle,Ankle,201939,22200359.0,22022.0,2022-12-05,2.0,True
+2022-11-09,Bucks,, Jrue Holiday,placed on IL with sprained right ankle,Ankle,201950,22200149.0,22022.0,2022-11-07,2.0,True
+2023-01-31,Lakers,, Patrick Beverley,placed on IL with sore left knee,Knee,201976,22200757.0,22022.0,2023-01-30,1.0,True
+2022-10-19,Grizzlies,, Danny Green,placed on IL with surgery on left knee,Knee,201980,,,,,False
+2022-11-16,Bucks,, Wesley Matthews / Wes Matthews Jr.,placed on IL with strained right hamstring,Hamstring,202083,22200204.0,22022.0,2022-11-14,2.0,True
+2023-02-24,Bucks,, Wesley Matthews / Wes Matthews Jr.,placed on IL with strained right calf,Calf,202083,22200883.0,22022.0,2023-02-16,8.0,True
+2022-11-29,Clippers,, John Wall (Hildred),placed on IL with left knee injury,Knee,202322,22200292.0,22022.0,2022-11-27,2.0,True
+2022-12-07,Clippers,, John Wall (Hildred),placed on IL with left knee injury,Knee,202322,22200352.0,22022.0,2022-12-05,2.0,True
+2022-12-14,Clippers,, John Wall (Hildred),placed on IL with left knee injury,Knee,202322,22200408.0,22022.0,2022-12-12,2.0,True
+2022-12-27,Clippers,, John Wall (Hildred),placed on IL with left knee injury,Knee,202322,22200499.0,22022.0,2022-12-26,1.0,True
+2023-01-04,Hornets,, Gordon Hayward,placed on IL with sore left hamstring,Hamstring,202330,22200551.0,22022.0,2023-01-02,2.0,True
+2023-01-24,Hornets,, Gordon Hayward,placed on IL with strained left hamstring,Hamstring,202330,22200710.0,22022.0,2023-01-23,1.0,True
+2022-11-21,Clippers,, Paul George,placed on IL with right hamstring injury / sore right knee,Knee,202331,22200239.0,22022.0,2022-11-19,2.0,True
+2022-12-15,Clippers,, Paul George,placed on IL with sore left knee,Knee,202331,22200423.0,22022.0,2022-12-14,1.0,True
+2023-01-06,Clippers,, Paul George,placed on IL with sore right hamstring,Hamstring,202331,22200579.0,22022.0,2023-01-05,1.0,True
+2023-01-18,Clippers,, Paul George,placed on IL with right hamstring injury,Hamstring,202331,22200668.0,22022.0,2023-01-17,1.0,True
+2023-03-22,Clippers,, Paul George,placed on IL with sprained right knee,Knee,202331,22201082.0,22022.0,2023-03-21,1.0,True
+2023-01-17,Nets,, Kyrie Irving,placed on IL with right calf injury,Calf,202681,22200651.0,22022.0,2023-01-15,2.0,True
+2023-03-01,Pelicans,, Jonas Valanciunas,placed on IL with left calf injury,Calf,202685,,,,,False
+2022-12-25,Mavericks,, Kemba Walker,placed on IL with left knee injury,Knee,202689,22200473.0,22022.0,2022-12-21,4.0,True
+2022-11-14,Warriors,, Klay Thompson,placed on IL with right Achilles tendon injury,Achilles,202691,22200197.0,22022.0,2022-11-13,1.0,True
+2022-11-21,Warriors,, Klay Thompson,placed on IL with right Achilles tendon injury,Achilles,202691,22200245.0,22022.0,2022-11-20,1.0,True
+2022-12-14,Warriors,, Klay Thompson,placed on IL with right Achilles tendon injury,Achilles,202691,22200410.0,22022.0,2022-12-13,1.0,True
+2022-12-28,Warriors,, Klay Thompson,placed on IL with right Achilles injury,Achilles,202691,22200513.0,22022.0,2022-12-27,1.0,True
+2023-01-15,Clippers,, Marcus Morris,placed on IL with bruised left knee,Knee,202694,22200639.0,22022.0,2023-01-13,2.0,True
+2022-10-25,Clippers,, Kawhi Leonard,placed on IL with right knee injury,Knee,202695,22200043.0,22022.0,2022-10-23,2.0,True
+2022-11-23,Clippers,, Kawhi Leonard,placed on IL with sprained right ankle,Ankle,202695,22200255.0,22022.0,2022-11-21,2.0,True
+2022-12-08,Clippers,, Kawhi Leonard,placed on IL with right knee injury,Knee,202695,22200363.0,22022.0,2022-12-07,1.0,True
+2022-12-15,Clippers,, Kawhi Leonard,placed on IL with right knee injury,Knee,202695,22200423.0,22022.0,2022-12-14,1.0,True
+2022-12-26,Clippers,, Kawhi Leonard,placed on IL with right knee injury,Knee,202695,22200480.0,22022.0,2022-12-23,3.0,True
+2023-01-18,Clippers,, Kawhi Leonard,placed on IL with right knee injury,Knee,202695,22200668.0,22022.0,2023-01-17,1.0,True
+2023-01-14,76ers,, Tobias Harris,placed on IL with sore left knee,Knee,202699,22200626.0,22022.0,2023-01-12,2.0,True
+2022-12-15,Clippers,, Reggie Jackson (Shon),placed on IL with left Achilles injury,Achilles,202704,22200423.0,22022.0,2022-12-14,1.0,True
+2023-01-19,Pistons,, Cory Joseph,placed on IL with sore right knee,Knee,202709,22200612.0,22022.0,2023-01-10,9.0,True
+2022-11-18,Heat,, Jimmy Butler,placed on IL with knee injury,Knee,202710,22200215.0,22022.0,2022-11-16,2.0,True
+2022-12-06,Heat,, Jimmy Butler,placed on IL with right knee injury,Knee,202710,22200357.0,22022.0,2022-12-05,1.0,True
+2022-12-14,Heat,, Jimmy Butler,placed on IL with right knee injury,Knee,202710,22200402.0,22022.0,2022-12-12,2.0,True
+2022-12-26,Heat,, Jimmy Butler,placed on IL with sprained right ankle,Ankle,202710,22200486.0,22022.0,2022-12-23,3.0,True
+2022-11-27,Pistons,, Bojan Bogdanovic,placed on IL with sore right knee,Knee,202711,22200283.0,22022.0,2022-11-25,2.0,True
+2023-01-10,Pistons,, Bojan Bogdanovic,placed on IL with right calf injury,Calf,202711,22200596.0,22022.0,2023-01-08,2.0,True
+2023-02-27,Pistons,, Bojan Bogdanovic,placed on IL with sore Achilles,Achilles,202711,22200903.0,22022.0,2023-02-25,2.0,True
+2023-03-03,Pistons,, Bojan Bogdanovic,placed on IL with Achilles injury,Achilles,202711,22200934.0,22022.0,2023-03-01,2.0,True
+2022-10-19,Mavericks,, Davis Bertans,placed on IL with knee injury,Knee,202722,,,,,False
+2023-02-04,Mavericks,, Davis Bertans,placed on IL with strained left calf,Calf,202722,22200782.0,22022.0,2023-02-02,2.0,True
+2022-12-10,Wizards,, Bradley Beal,placed on IL with strained right hamstring,Hamstring,203078,22200349.0,22022.0,2022-12-04,6.0,True
+2022-12-28,Wizards,, Bradley Beal,placed on IL with left hamstring injury,Hamstring,203078,22200506.0,22022.0,2022-12-27,1.0,True
+2023-01-18,Wizards,, Bradley Beal,placed on IL with left hamstring injury,Hamstring,203078,22200669.0,22022.0,2023-01-18,0.0,True
+2023-03-22,Wizards,, Bradley Beal,placed on IL with sore left knee,Knee,203078,22201077.0,22022.0,2023-03-21,1.0,True
+2022-11-05,Blazers,, Damian Lillard,placed on IL with strained right calf,Calf,203081,22200065.0,22022.0,2022-10-26,10.0,True
+2023-03-12,Blazers,, Damian Lillard,placed on IL with right calf injury,Calf,203081,22200998.0,22022.0,2023-03-10,2.0,True
+2023-03-24,Blazers,, Damian Lillard,placed on IL with tightness in right calf,Calf,203081,22201091.0,22022.0,2023-03-22,2.0,True
+2023-03-16,Bucks,, Jae Crowder,placed on IL with sore calf,Calf,203109,,,,,False
+2023-02-24,Warriors,, Draymond Green,placed on IL with bruised right knee,Knee,203110,22200893.0,22022.0,2023-02-23,1.0,True
+2022-12-17,Bucks,, Khris Middleton,placed on IL with sore right knee,Knee,203114,22200425.0,22022.0,2022-12-15,2.0,True
+2023-02-16,Bucks,, Khris Middleton,placed on IL with sore right knee,Knee,203114,22200869.0,22022.0,2023-02-14,2.0,True
+2023-04-06,Bucks,, Khris Middleton,placed on IL with sore right knee,Knee,203114,22201193.0,22022.0,2023-04-05,1.0,True
+2023-03-28,Raptors,, Will Barton,placed on IL with sprained left ankle,Ankle,203115,,,,,False
+2023-02-13,Pelicans,, C.J. McCollum,placed on IL with sprained right ankle,Ankle,203468,22200842.0,22022.0,2023-02-10,3.0,True
+2022-12-19,Jazz,, Kelly Olynyk,placed on IL with sprained left ankle,Ankle,203482,22200442.0,22022.0,2022-12-17,2.0,True
+2022-10-28,Nuggets,, Kentavious Caldwell-Pope,placed on IL with ankle injury,Ankle,203484,22200064.0,22022.0,2022-10-26,2.0,True
+2023-02-05,Nuggets,, Kentavious Caldwell-Pope,placed on IL with sprained right ankle,Ankle,203484,22200801.0,22022.0,2023-02-04,1.0,True
+2022-10-19,Raptors,, Otto Porter Jr.,placed on IL with left hamstring injury,Hamstring,203490,,,,,False
+2022-12-18,Timberwolves,, Rudy Gobert,placed on IL with sprained left ankle,Ankle,203497,22200423.0,22022.0,2022-12-14,4.0,True
+2022-11-07,Grizzlies,, Steven Adams,placed on IL with sore right ankle,Ankle,203500,22200142.0,22022.0,2022-11-06,1.0,True
+2023-02-13,Mavericks,, Tim Hardaway Jr.,placed on IL with tightness in right hamstring,Hamstring,203501,22200854.0,22022.0,2023-02-11,2.0,True
+2023-03-15,Mavericks,, Tim Hardaway Jr.,placed on IL with left calf injury,Calf,203501,22201023.0,22022.0,2023-03-13,2.0,True
+2022-10-19,Heat,, Victor Oladipo,placed on IL with knee injury,Knee,203506,,,,,False
+2022-12-15,Heat,, Victor Oladipo,placed on IL with left knee injury,Knee,203506,22200419.0,22022.0,2022-12-14,1.0,True
+2022-11-09,Bucks,, Giannis Antetokounmpo,placed on IL with sore left knee,Knee,203507,22200149.0,22022.0,2022-11-07,2.0,True
+2022-12-03,Bucks,, Giannis Antetokounmpo,placed on IL with sore left knee,Knee,203507,22200331.0,22022.0,2022-12-02,1.0,True
+2023-01-01,Bucks,, Giannis Antetokounmpo,placed on IL with sore left knee,Knee,203507,22200533.0,22022.0,2022-12-30,2.0,True
+2023-01-12,Bucks,, Giannis Antetokounmpo,placed on IL with sore left knee,Knee,203507,22200620.0,22022.0,2023-01-11,1.0,True
+2023-03-27,Bucks,, Giannis Antetokounmpo,placed on IL with sore right knee,Knee,203507,22201109.0,22022.0,2023-03-25,2.0,True
+2023-04-05,Bucks,, Giannis Antetokounmpo,placed on IL with sore right knee,Knee,203507,22201179.0,22022.0,2023-04-04,1.0,True
+2022-11-02,Cavaliers,, Raulzinho Neto / Raul Neto,placed on IL with right ankle injury,Ankle,203526,22200090.0,22022.0,2022-10-30,3.0,True
+2023-03-23,Cavaliers,, Raulzinho Neto / Raul Neto,placed on IL with strained left hamstring,Hamstring,203526,22201049.0,22022.0,2023-03-17,6.0,True
+2022-10-19,Nets,, Seth Curry,placed on IL with sprained left ankle,Ankle,203552,,,,,False
+2022-11-13,Nets,, Seth Curry,placed on IL with left ankle injury,Ankle,203552,22200184.0,22022.0,2022-11-12,1.0,True
+2022-11-23,Nets,, Seth Curry,placed on IL with left ankle injury,Ankle,203552,22200256.0,22022.0,2022-11-22,1.0,True
+2023-01-26,Nets,, Seth Curry,placed on IL with sore right knee,Knee,203552,22200721.0,22022.0,2023-01-25,1.0,True
+2023-03-06,Pistons,, Rodney McGruder,placed on IL with sprained right ankle,Ankle,203585,,,,,False
+2022-10-19,Bulls,, Zach LaVine,placed on IL with left knee injury,Knee,203897,,,,,False
+2022-10-19,Magic,, Gary Harris,placed on IL with left knee injury,Knee,203914,,,,,False
+2022-10-19,Raptors,, Khem Birch,placed on IL with knee injury,Knee,203920,,,,,False
+2023-02-12,Spurs,, Khem Birch,placed on IL with knee injury,Knee,203920,22200526.0,22022.0,2022-12-29,45.0,False
+2022-11-09,Blazers,, Jerami Grant,placed on IL with sprained left ankle,Ankle,203924,22200150.0,22022.0,2022-11-07,2.0,True
+2022-10-27,Nets,, Joe Harris,placed on IL with ankle injury,Ankle,203925,22200060.0,22022.0,2022-10-26,1.0,True
+2022-12-23,Nets,, Joe Harris,placed on IL with sore left knee,Knee,203925,22200470.0,22022.0,2022-12-21,2.0,True
+2022-11-17,Spurs,, Doug McDermott,placed on IL with left calf injury,Calf,203926,22200209.0,22022.0,2022-11-15,2.0,True
+2022-12-02,Spurs,, Doug McDermott,placed on IL with sprained right ankle,Ankle,203926,22200319.0,22022.0,2022-11-30,2.0,True
+2022-12-27,Spurs,, Doug McDermott,placed on IL with sore right knee,Knee,203926,22200503.0,22022.0,2022-12-26,1.0,True
+2023-02-11,Spurs,, Doug McDermott,placed on IL with right Achilles injury,Achilles,203926,22200835.0,22022.0,2023-02-10,1.0,True
+2023-02-02,Nuggets,, Aaron Gordon,placed on IL with sprained left ankle,Ankle,203932,22200768.0,22022.0,2023-01-31,2.0,True
+2023-02-05,Nuggets,, Aaron Gordon,placed on IL with sprained left ankle,Ankle,203932,22200801.0,22022.0,2023-02-04,1.0,True
+2022-11-16,Celtics,, Marcus Smart,placed on IL with right ankle injury,Ankle,203935,22200201.0,22022.0,2022-11-14,2.0,True
+2023-01-09,Celtics,, Marcus Smart,placed on IL with bruised left knee,Knee,203935,22200591.0,22022.0,2023-01-07,2.0,True
+2023-01-23,Celtics,, Marcus Smart,placed on IL with sprained right ankle,Ankle,203935,22200692.0,22022.0,2023-01-21,2.0,True
+2023-03-30,Knicks,, Julius Randle,placed on IL with sprained left ankle,Ankle,203944,,,,,False
+2023-03-27,76ers,, Joel Embiid,placed on IL with right calf injury,Calf,203954,,,,,False
+2022-12-15,Hawks,, Clint Capela,placed on IL with strained right calf,Calf,203991,22200416.0,22022.0,2022-12-14,1.0,True
+2022-12-27,Hawks,, Clint Capela,placed on IL with strained right calf,Calf,203991,22200481.0,22022.0,2022-12-23,4.0,True
+2023-04-08,Hawks,, Clint Capela,placed on IL with right calf injury,Calf,203991,22201205.0,22022.0,2023-04-07,1.0,True
+2022-12-19,Blazers,, Jusuf Nurkic,placed on IL with right calf injury,Calf,203994,22200441.0,22022.0,2022-12-17,2.0,True
+2023-01-25,Blazers,, Jusuf Nurkic,placed on IL with left calf injury,Calf,203994,22200727.0,22022.0,2023-01-25,0.0,True
+2023-02-02,Blazers,, Jusuf Nurkic,placed on IL with strained left calf,Calf,203994,22200771.0,22022.0,2023-02-01,1.0,True
+2023-03-24,Blazers,, Jusuf Nurkic,placed on IL with sore right knee,Knee,203994,22201091.0,22022.0,2023-03-22,2.0,True
+2023-01-20,Nuggets,, Nikola Jokic,placed on IL with left hamstring injury,Hamstring,203999,22200676.0,22022.0,2023-01-18,2.0,True
+2023-01-25,Nuggets,, Nikola Jokic,placed on IL with left hamstring injury,Hamstring,203999,22200716.0,22022.0,2023-01-24,1.0,True
+2023-02-05,Nuggets,, Nikola Jokic,placed on IL with left hamstring injury,Hamstring,203999,22200801.0,22022.0,2023-02-04,1.0,True
+2023-03-30,Nuggets,, Nikola Jokic,placed on IL with right calf injury,Calf,203999,22201126.0,22022.0,2023-03-27,3.0,True
+2023-04-06,Nuggets,, Nikola Jokic,placed on IL with right calf injury,Calf,203999,22201183.0,22022.0,2023-04-04,2.0,True
+2023-01-23,Wizards,, Kristaps Porzingis,placed on IL with sprained left ankle,Ankle,204001,22200693.0,22022.0,2023-01-21,2.0,True
+2023-02-25,Wizards,, Kristaps Porzingis,placed on IL with sore left knee,Knee,204001,22200895.0,22022.0,2023-02-24,1.0,True
+2022-10-20,Bucks,, Joe Ingles,placed on IL with knee injury,Knee,204060,,,,,False
+2023-01-12,Bucks,, Joe Ingles,placed on IL with left knee injury,Knee,204060,22200620.0,22022.0,2023-01-11,1.0,True
+2022-10-27,Wizards,, Delon Wright,placed on IL with strained right hamstring,Hamstring,1626153,22200052.0,22022.0,2022-10-25,2.0,True
+2022-12-14,Timberwolves,, D'Angelo Russell,placed on IL with bruised left knee,Knee,1626156,22200407.0,22022.0,2022-12-12,2.0,True
+2023-02-26,Lakers,, D'Angelo Russell,placed on IL with sprained right ankle,Ankle,1626156,22200893.0,22022.0,2023-02-23,3.0,True
+2022-11-30,Timberwolves,, Karl-Anthony Towns,placed on IL with strained right calf,Calf,1626157,22200300.0,22022.0,2022-11-28,2.0,True
+2022-12-23,Blazers,, Justise Winslow,placed on IL with sprained left ankle,Ankle,1626159,22200474.0,22022.0,2022-12-21,2.0,True
+2022-12-11,Suns,, Devin Booker,placed on IL with left hamstring injury,Hamstring,1626164,22200384.0,22022.0,2022-12-09,2.0,True
+2022-12-05,Pacers,, Myles Turner,placed on IL with right hamstring injury,Hamstring,1626167,22200351.0,22022.0,2022-12-04,1.0,True
+2023-03-29,Pacers,, Myles Turner,placed on IL with sore left ankle,Ankle,1626167,22201097.0,22022.0,2023-03-24,5.0,True
+2023-01-23,Bucks,, Bobby Portis,placed on IL with sprained right knee,Knee,1626171,22200706.0,22022.0,2023-01-23,0.0,True
+2022-11-09,Mavericks,, Christian Wood,placed on IL with sprained left knee,Knee,1626174,22200155.0,22022.0,2022-11-07,2.0,True
+2023-01-14,Mavericks,, Christian Wood,placed on IL with sprained right ankle,Ankle,1626174,22200630.0,22022.0,2023-01-12,2.0,True
+2022-10-23,Hornets,, Terry Rozier,placed on IL with sprained right ankle,Ankle,1626179,22200017.0,22022.0,2022-10-21,2.0,True
+2022-10-20,Bucks,, Pat Connaughton,placed on IL with strained right calf,Calf,1626192,,,,,False
+2023-02-15,Bucks,, Pat Connaughton,placed on IL with left calf injury,Calf,1626192,22200869.0,22022.0,2023-02-14,1.0,True
+2022-11-23,Spurs,, Josh Richardson,placed on IL with sore right ankle,Ankle,1626196,22200247.0,22022.0,2022-11-20,3.0,True
+2023-01-26,Spurs,, Josh Richardson,placed on IL with sore left/right knee,Knee,1626196,22200729.0,22022.0,2023-01-25,1.0,True
+2022-11-09,Pelicans,, Larry Nance Jr.,placed on IL with left knee injury,Knee,1626204,22200147.0,22022.0,2022-11-07,2.0,True
+2022-12-18,Pelicans,, Larry Nance Jr.,placed on IL with sore right Achilles,Achilles,1626204,22200444.0,22022.0,2022-12-17,1.0,True
+2023-02-26,Pelicans,, Larry Nance Jr.,placed on IL with sprained left ankle,Ankle,1626204,22200906.0,22022.0,2023-02-25,1.0,True
+2023-03-08,Nets,, Royce O'Neale,placed on IL with sore left knee,Knee,1626220,,,,,False
+2022-10-31,Nets,, Ben Simmons,placed on IL with left knee injury,Knee,1627732,22200083.0,22022.0,2022-10-29,2.0,True
+2022-11-30,Nets,, Ben Simmons,placed on IL with strained left calf,Calf,1627732,22200302.0,22022.0,2022-11-28,2.0,True
+2023-01-27,Nets,, Ben Simmons,placed on IL with sore left knee,Knee,1627732,22200731.0,22022.0,2023-01-26,1.0,True
+2023-02-24,Nets,, Ben Simmons,placed on IL with sore left knee,Knee,1627732,22200878.0,22022.0,2023-02-15,9.0,True
+2023-04-07,Kings,, Domantas Sabonis,placed on IL with sore left ankle,Ankle,1627734,,,,,False
+2023-03-11,Pelicans,, Brandon Ingram,placed on IL with sprained right ankle,Ankle,1627742,,,,,False
+2022-11-21,Cavaliers,, Caris LeVert,placed on IL with sprained left ankle,Ankle,1627747,22200244.0,22022.0,2022-11-20,1.0,True
+2023-02-02,Cavaliers,, Caris LeVert,placed on IL with right hamstring injury,Hamstring,1627747,22200764.0,22022.0,2023-01-31,2.0,True
+2023-04-09,Cavaliers,, Caris LeVert,placed on IL with sore right knee,Knee,1627747,22201178.0,22022.0,2023-04-04,5.0,True
+2022-12-08,Hawks,, Dejounte Murray,placed on IL with sprained left ankle,Ankle,1627749,22200365.0,22022.0,2022-12-07,1.0,True
+2023-04-08,Hawks,, Dejounte Murray,placed on IL with sore left ankle,Ankle,1627749,22201205.0,22022.0,2023-04-07,1.0,True
+2022-12-20,Nuggets,, Jamal Murray,placed on IL with left knee injury,Knee,1627750,22200450.0,22022.0,2022-12-18,2.0,True
+2022-12-28,Nuggets,, Jamal Murray,placed on IL with left knee injury,Knee,1627750,22200514.0,22022.0,2022-12-27,1.0,True
+2023-01-25,Nuggets,, Jamal Murray,placed on IL with left knee injury,Knee,1627750,22200716.0,22022.0,2023-01-24,1.0,True
+2023-02-07,Nuggets,, Jamal Murray,placed on IL with right knee inflammation,Knee,1627750,22200801.0,22022.0,2023-02-04,3.0,True
+2022-11-20,Spurs,, Jakob Poeltl,placed on IL with sore right knee,Knee,1627751,22200239.0,22022.0,2022-11-19,1.0,True
+2022-11-11,Celtics,, Malcolm Brogdon,placed on IL with right hamstring injury,Hamstring,1627763,22200163.0,22022.0,2022-11-09,2.0,True
+2023-02-12,Celtics,, Malcolm Brogdon,placed on IL with sore right Achilles,Achilles,1627763,22200838.0,22022.0,2023-02-10,2.0,True
+2023-03-03,Celtics,, Malcolm Brogdon,placed on IL with sore right ankle,Ankle,1627763,22200935.0,22022.0,2023-03-01,2.0,True
+2023-03-17,Celtics,, Malcolm Brogdon,placed on IL with sore right Achilles,Achilles,1627763,22201039.0,22022.0,2023-03-15,2.0,True
+2023-01-19,Blazers,, Gary Payton II,placed on IL with left calf injury,Calf,1627780,22200667.0,22022.0,2023-01-17,2.0,True
+2022-11-19,76ers,, Furkan Korkmaz,placed on IL with left knee injury,Knee,1627788,22200188.0,22022.0,2022-11-12,7.0,True
+2022-12-15,Clippers,, Ivica Zubac,placed on IL with bruised left knee / discomfort in left knee,Knee,1627826,22200423.0,22022.0,2022-12-14,1.0,True
+2023-02-23,Clippers,, Ivica Zubac,placed on IL with strained right calf,Calf,1627826,22200885.0,22022.0,2023-02-16,7.0,True
+2023-03-02,Clippers,, Ivica Zubac,placed on IL with strained right calf,Calf,1627826,22200932.0,22022.0,2023-02-28,2.0,True
+2022-11-30,Knicks,, Ryan Arcidiacono,placed on IL with sprained left ankle,Ankle,1627853,22200309.0,22022.0,2022-11-29,1.0,True
+2022-12-21,Bulls,, Derrick Jones Jr.,placed on IL with sprained left ankle,Ankle,1627884,22200462.0,22022.0,2022-12-20,1.0,True
+2022-11-01,Kings,, De'Aaron Fox,placed on IL with right knee injury,Knee,1628368,22200096.0,22022.0,2022-10-31,1.0,True
+2023-03-06,Kings,, De'Aaron Fox,placed on IL with left hamstring injury,Hamstring,1628368,22200961.0,22022.0,2023-03-04,2.0,True
+2023-03-25,Kings,, De'Aaron Fox,placed on IL with right hamstring injury,Hamstring,1628368,22201105.0,22022.0,2023-03-24,1.0,True
+2023-04-07,Kings,, De'Aaron Fox,placed on IL with sore left ankle,Ankle,1628368,22201195.0,22022.0,2023-04-05,2.0,True
+2023-03-06,Celtics,, Jayson Tatum,placed on IL with bruised left knee,Knee,1628369,,,,,False
+2023-01-07,Kings,, Malik Monk,placed on IL with left calf injury,Calf,1628370,22200575.0,22022.0,2023-01-04,3.0,True
+2023-02-13,Kings,, Malik Monk,placed on IL with sprained right ankle,Ankle,1628370,22200844.0,22022.0,2023-02-10,3.0,True
+2023-02-25,Magic,, Jonathan Isaac,placed on IL with left knee injury,Knee,1628371,22200888.0,22022.0,2023-02-23,2.0,True
+2022-11-14,Hornets,, Dennis Smith Jr.,placed on IL with sprained left ankle,Ankle,1628372,22200174.0,22022.0,2022-11-10,4.0,True
+2022-10-19,Mavericks,, Frank Ntilikina,placed on IL with ankle injury,Ankle,1628373,,,,,False
+2023-03-29,Mavericks,, Frank Ntilikina,placed on IL with knee injury,Knee,1628373,22201123.0,22022.0,2023-03-27,2.0,True
+2023-02-15,Jazz,, Lauri Markkanen,placed on IL with sore right knee,Knee,1628374,22200859.0,22022.0,2023-02-13,2.0,True
+2022-11-04,Cavaliers,, Donovan Mitchell,placed on IL with sprained left ankle,Ankle,1628378,22200107.0,22022.0,2022-11-02,2.0,True
+2022-11-13,Cavaliers,, Donovan Mitchell,placed on IL with right ankle injury,Ankle,1628378,22200182.0,22022.0,2022-11-11,2.0,True
+2022-12-07,Clippers,, Luke Kennard,placed on IL with right calf injury,Calf,1628379,22200352.0,22022.0,2022-12-05,2.0,True
+2023-01-08,Clippers,, Luke Kennard,placed on IL with right calf injury,Calf,1628379,22200587.0,22022.0,2023-01-06,2.0,True
+2023-03-15,Spurs,, Zach Collins,placed on IL with left ankle injury,Ankle,1628380,,,,,False
+2022-12-01,Hawks,, John Collins (Martin),placed on IL with sprained left ankle,Ankle,1628381,22200313.0,22022.0,2022-11-30,1.0,True
+2023-01-22,Raptors,, Ogugua Anunoby / O.G. Anunoby,placed on IL with sore right ankle,Ankle,1628384,22200692.0,22022.0,2023-01-21,1.0,True
+2023-04-08,Raptors,, Ogugua Anunoby / O.G. Anunoby,placed on IL with sore right ankle,Ankle,1628384,22201206.0,22022.0,2023-04-07,1.0,True
+2022-11-13,Cavaliers,, Jarrett Allen,placed on IL with sore left ankle,Ankle,1628386,22200182.0,22022.0,2022-11-11,2.0,True
+2023-02-05,Wizards,, Kyle Kuzma,placed on IL with sprained left ankle,Ankle,1628398,22200793.0,22022.0,2023-02-04,1.0,True
+2023-03-05,Wizards,, Kyle Kuzma,placed on IL with knee injury,Knee,1628398,22200956.0,22022.0,2023-03-04,1.0,True
+2023-03-14,Wizards,, Kyle Kuzma,placed on IL with sore right knee,Knee,1628398,22201016.0,22022.0,2023-03-12,2.0,True
+2023-03-20,Wizards,, Kyle Kuzma,placed on IL with sprained right ankle,Ankle,1628398,22201059.0,22022.0,2023-03-18,2.0,True
+2022-11-30,Blazers,, Josh Hart,placed on IL with sprained left ankle,Ankle,1628404,22200311.0,22022.0,2022-11-29,1.0,True
+2023-01-14,Grizzlies,, Dillon Brooks,placed on IL with sore right ankle,Ankle,1628415,22200623.0,22022.0,2023-01-11,3.0,True
+2022-11-20,Wizards,, Monte Morris,placed on IL with sore right ankle,Ankle,1628420,22200224.0,22022.0,2022-11-18,2.0,True
+2023-01-25,Wizards,, Monte Morris,"placed on IL with right hamstring, rib injuries",Hamstring,1628420,22200717.0,22022.0,2023-01-24,1.0,True
+2023-04-02,Wizards,, Monte Morris,placed on IL with sore right ankle,Ankle,1628420,22201151.0,22022.0,2023-03-31,2.0,True
+2023-02-06,Celtics,, Luke Kornet,placed on IL with sprained left ankle,Ankle,1628436,22200788.0,22022.0,2023-02-03,3.0,True
+2022-10-19,Raptors,, Chris Boucher,placed on IL with left hamstring injury,Hamstring,1628449,,,,,False
+2022-10-19,Pacers,, Daniel Theis,placed on IL with surgery on right knee,Knee,1628464,,,,,False
+2022-12-14,Mavericks,, Maximilian Kleber / Maxi Kleber,placed on IL with right hamstring injury,Hamstring,1628467,22200405.0,22022.0,2022-12-12,2.0,True
+2023-03-05,Mavericks,, Maximilian Kleber / Maxi Kleber,placed on IL with right hamstring injury,Hamstring,1628467,22200943.0,22022.0,2023-03-02,3.0,True
+2023-03-08,Mavericks,, Maximilian Kleber / Maxi Kleber,placed on IL with right hamstring injury,Hamstring,1628467,22200983.0,22022.0,2023-03-07,1.0,True
+2022-11-16,Bucks,, Grayson Allen,placed on IL with sprained right ankle,Ankle,1628960,22200204.0,22022.0,2022-11-14,2.0,True
+2023-01-12,Bucks,, Grayson Allen,placed on IL with sprained right ankle,Ankle,1628960,22200620.0,22022.0,2023-01-11,1.0,True
+2023-04-03,Bucks,, Grayson Allen,placed on IL with sprained right ankle,Ankle,1628960,22201174.0,22022.0,2023-04-02,1.0,True
+2022-10-12,Pistons,, Marvin Bagley III,placed on IL with sprained MCL in right knee,Knee,1628963,,,,,False
+2022-12-28,Nuggets,, Bruce Brown,placed on IL with sprained right ankle,Ankle,1628971,22200514.0,22022.0,2022-12-27,1.0,True
+2023-04-08,Nuggets,, Bruce Brown,placed on IL with left knee inflammation,Knee,1628971,22201201.0,22022.0,2023-04-06,2.0,True
+2023-03-07,Pistons,, Hamidou Diallo,placed on IL with sprained right ankle,Ankle,1628977,,,,,False
+2022-10-24,Warriors,, Donte DiVincenzo,placed on IL with hamstring injury,Hamstring,1628978,22200042.0,22022.0,2022-10-23,1.0,True
+2023-02-24,Thunder,, Shai Gilgeous-Alexander,placed on IL with sore right ankle,Ankle,1628983,22200892.0,22022.0,2023-02-23,1.0,True
+2023-03-28,Thunder,, Shai Gilgeous-Alexander,placed on IL with sprained left ankle,Ankle,1628983,22201120.0,22022.0,2023-03-26,2.0,True
+2023-03-17,Kings,, Kevin Huerter,placed on IL with right hamstring injury / knee injury,Knee,1628989,,,,,False
+2023-03-29,Grizzlies,, Jaren Jackson Jr.,placed on IL with calf injury,Calf,1628991,,,,,False
+2022-12-20,Heat,, Caleb Martin,placed on IL with sprained left ankle,Ankle,1628997,22200424.0,22022.0,2022-12-15,5.0,True
+2022-12-30,Heat,, Caleb Martin,placed on IL with sprained left ankle,Ankle,1628997,22200518.0,22022.0,2022-12-28,2.0,True
+2023-03-11,Heat,, Caleb Martin,placed on IL with sore left knee,Knee,1628997,22201000.0,22022.0,2023-03-10,1.0,True
+2023-01-16,Hornets,, Cody Martin,placed on IL with sore left knee,Knee,1628998,22200642.0,22022.0,2023-01-14,2.0,True
+2023-04-07,76ers,, De'Anthony Melton,placed on IL with calf injury,Calf,1629001,,,,,False
+2022-11-05,Knicks,, Mitchell Robinson,placed on IL with sprained right knee,Knee,1629011,22200122.0,22022.0,2022-11-04,1.0,True
+2022-12-08,Jazz,, Collin Sexton,placed on IL with strained right hamstring,Hamstring,1629012,22200372.0,22022.0,2022-12-07,1.0,True
+2023-02-22,Jazz,, Collin Sexton,placed on IL with strained left hamstring,Hamstring,1629012,22200879.0,22022.0,2023-02-15,7.0,True
+2022-12-27,Suns,, Landry Shamet,placed on IL with right Achilles injury,Achilles,1629013,22200497.0,22022.0,2022-12-25,2.0,True
+2023-02-16,Blazers,, Anfernee Simons,placed on IL with sprained right ankle,Ankle,1629014,22200872.0,22022.0,2023-02-14,2.0,True
+2023-03-03,Blazers,, Anfernee Simons,placed on IL with sprained right ankle,Ankle,1629014,22200941.0,22022.0,2023-03-01,2.0,True
+2023-02-14,Raptors,, Gary Trent Jr.,placed on IL with strained left calf,Calf,1629018,22200839.0,22022.0,2023-02-10,4.0,True
+2023-04-08,Magic,, Moritz Wagner / Moe Wagner,placed on IL with sprained right ankle,Ankle,1629021,,,,,False
+2023-01-25,Lakers,, Lonnie Walker IV,placed on IL with left knee tendinitis,Knee,1629022,22200518.0,22022.0,2022-12-28,28.0,False
+2023-04-02,Hornets,, P.J. Washington,placed on IL with sprained right ankle,Ankle,1629023,,,,,False
+2022-12-05,Thunder,, Kenrich Williams,placed on IL with sprained right knee,Knee,1629026,22200341.0,22022.0,2022-12-03,2.0,True
+2022-12-28,Hawks,, Trae Young,placed on IL with left calf injury,Calf,1629027,22200508.0,22022.0,2022-12-27,1.0,True
+2023-01-30,Hawks,, Trae Young,placed on IL with sore right ankle,Ankle,1629027,22200745.0,22022.0,2023-01-28,2.0,True
+2022-12-15,Suns,, Deandre Ayton,placed on IL with sprained left ankle,Ankle,1629028,22200411.0,22022.0,2022-12-13,2.0,True
+2023-01-08,Mavericks,, Luka Doncic,placed on IL with sore left ankle,Ankle,1629029,22200593.0,22022.0,2023-01-07,1.0,True
+2023-01-15,Mavericks,, Luka Doncic,placed on IL with sore left ankle,Ankle,1629029,22200647.0,22022.0,2023-01-14,1.0,True
+2023-01-26,Mavericks,, Luka Doncic,placed on IL with sprained left ankle,Ankle,1629029,22200734.0,22022.0,2023-01-26,0.0,True
+2023-01-11,Celtics,, Robert Williams III,placed on IL with left knee injury,Knee,1629057,22200606.0,22022.0,2023-01-09,2.0,True
+2023-01-23,Celtics,, Robert Williams III,placed on IL with left knee injury,Knee,1629057,22200692.0,22022.0,2023-01-21,2.0,True
+2023-02-08,Celtics,, Robert Williams III,placed on IL with sprained left ankle,Ankle,1629057,22200808.0,22022.0,2023-02-06,2.0,True
+2023-03-04,Celtics,, Robert Williams III,placed on IL with strained left hamstring,Hamstring,1629057,22200948.0,22022.0,2023-03-03,1.0,True
+2022-11-20,Wizards,, Rui Hachimura,placed on IL with sore right ankle,Ankle,1629060,22200224.0,22022.0,2022-11-18,2.0,True
+2022-11-09,Nets,, Yuta Watanabe,placed on IL with sprained left ankle,Ankle,1629139,22200155.0,22022.0,2022-11-07,2.0,True
+2022-11-22,Nets,, Yuta Watanabe,placed on IL with right hamstring injury,Hamstring,1629139,22200243.0,22022.0,2022-11-20,2.0,True
+2022-12-11,Lakers,, Juan Toscano-Anderson,placed on IL with sprained right ankle,Ankle,1629308,22200366.0,22022.0,2022-12-07,4.0,True
+2023-01-03,Pelicans,, Zion Williamson,placed on IL with strained right hamstring (out for season),Hamstring,1629627,22200554.0,22022.0,2023-01-02,1.0,True
+2022-11-13,Grizzlies,, Ja Morant,placed on IL with sore left ankle,Ankle,1629630,22200181.0,22022.0,2022-11-11,2.0,True
+2023-01-23,Grizzlies,, Ja Morant,placed on IL with sore left ankle,Ankle,1629630,22200703.0,22022.0,2023-01-22,1.0,True
+2022-12-27,Hawks,, De'Andre Hunter,placed on IL with sprained left ankle,Ankle,1629631,22200481.0,22022.0,2022-12-23,4.0,True
+2023-03-25,Hawks,, De'Andre Hunter,placed on IL with bruised left knee,Knee,1629631,22201090.0,22022.0,2023-03-22,3.0,True
+2023-03-31,Hawks,, De'Andre Hunter,placed on IL with left knee injury,Knee,1629631,22201131.0,22022.0,2023-03-28,3.0,True
+2023-03-04,Grizzlies,, Brandon Clarke,placed on IL with torn left Achilles tendon (out for season),Achilles,1629634,,,,,False
+2022-11-07,Heat,, Tyler Herro,placed on IL with sprained left ankle,Ankle,1629639,22200121.0,22022.0,2022-11-04,3.0,True
+2023-01-14,Heat,, Tyler Herro,placed on IL with left Achilles injury,Achilles,1629639,22200599.0,22022.0,2023-01-08,6.0,True
+2023-02-15,Heat,, Tyler Herro,placed on IL with bruised left knee,Knee,1629639,22200848.0,22022.0,2023-02-11,4.0,True
+2022-11-02,Spurs,, Keldon Johnson,placed on IL with right calf injury,Calf,1629640,22200092.0,22022.0,2022-10-30,3.0,True
+2022-11-17,Spurs,, Keldon Johnson,placed on IL with sore left ankle,Ankle,1629640,22200209.0,22022.0,2022-11-15,2.0,True
+2022-12-19,Spurs,, Keldon Johnson,placed on IL with right hamstring injury,Hamstring,1629640,22200439.0,22022.0,2022-12-17,2.0,True
+2023-01-07,Spurs,, Keldon Johnson,placed on IL with left hamstring injury,Hamstring,1629640,22200585.0,22022.0,2023-01-06,1.0,True
+2023-04-01,Blazers,, Nassir Little,placed on IL with sprained left ankle,Ankle,1629642,,,,,False
+2023-03-15,Spurs,, Charles Bassey,placed on IL with fractured patella in left knee (out for season),Knee,1629646,,,,,False
+2022-11-11,Thunder,, Darius Bazley,placed on IL with sprained right ankle,Ankle,1629647,22200168.0,22022.0,2022-11-09,2.0,True
+2022-12-09,Nets,, Nicolas Claxton / Nic Claxton,placed on IL with right hamstring injury,Hamstring,1629651,22200364.0,22022.0,2022-12-07,2.0,True
+2023-02-09,Nets,, Nicolas Claxton / Nic Claxton,placed on IL with hamstring injury,Hamstring,1629651,22200817.0,22022.0,2023-02-07,2.0,True
+2022-12-07,Thunder,, Luguentz Dort,placed on IL with bruised left knee,Knee,1629652,22200354.0,22022.0,2022-12-05,2.0,True
+2023-01-11,Wizards,, Daniel Gafford,placed on IL with sprained right ankle,Ankle,1629655,22200605.0,22022.0,2023-01-09,2.0,True
+2023-01-08,Jazz,, Talen Horton-Tucker,placed on IL with sprained right ankle,Ankle,1629659,22200592.0,22022.0,2023-01-07,1.0,True
+2023-04-06,Jazz,, Talen Horton-Tucker,placed on IL with sore left ankle,Ankle,1629659,22201186.0,22022.0,2023-04-04,2.0,True
+2023-03-08,Nets,, Cameron Johnson,placed on IL with sore right knee,Knee,1629661,,,,,False
+2023-02-26,Timberwolves,, Jaylen Nowell,placed on IL with left knee injury,Knee,1629669,22200898.0,22022.0,2023-02-24,2.0,True
+2023-03-31,Timberwolves,, Jaylen Nowell,placed on IL with left knee injury,Knee,1629669,22201128.0,22022.0,2023-03-27,4.0,True
+2023-02-14,Spurs,, Isaiah Roby,placed on IL with sprained right ankle,Ankle,1629676,22200858.0,22022.0,2023-02-13,1.0,True
+2022-11-25,76ers,, Matisse Thybulle,placed on IL with left ankle injury,Ankle,1629680,22200256.0,22022.0,2022-11-22,3.0,True
+2023-04-04,Blazers,, Matisse Thybulle,placed on IL with right knee injury,Knee,1629680,22201166.0,22022.0,2023-04-02,2.0,True
+2022-11-11,Cavaliers,, Dean Wade,placed on IL with right knee injury,Knee,1629731,22200171.0,22022.0,2022-11-09,2.0,True
+2022-12-04,Bulls,, Javonte Green,placed on IL with sore right knee,Knee,1629750,22200336.0,22022.0,2022-12-02,2.0,True
+2022-12-18,Bulls,, Javonte Green,placed on IL with sore right knee,Knee,1629750,22200434.0,22022.0,2022-12-16,2.0,True
+2023-01-09,Bulls,, Javonte Green,placed on IL with sore right knee (eventual surgery),Knee,1629750,22200540.0,22022.0,2022-12-31,9.0,True
+2023-03-26,Bulls,, Javonte Green,placed on IL with right knee injury,Knee,1629750,22201087.0,22022.0,2023-03-22,4.0,True
+2023-03-18,Timberwolves,, Anthony Edwards,placed on IL with sprained right ankle,Ankle,1630162,,,,,False
+2023-01-23,Hornets,, LaMelo Ball,"placed on IL with ankle, wrist injuries",Ankle,1630163,22200671.0,22022.0,2023-01-18,5.0,True
+2023-03-01,Hornets,, LaMelo Ball,placed on IL with fractured right ankle,Ankle,1630163,22200919.0,22022.0,2023-02-27,2.0,True
+2023-01-07,Warriors,, James Wiseman,placed on IL with sprained left ankle,Ankle,1630164,22200521.0,22022.0,2022-12-28,10.0,True
+2023-01-23,Hawks,, Onyeka Okongwu,placed on IL with left hamstring injury,Hamstring,1630168,22200694.0,22022.0,2023-01-21,2.0,True
+2023-01-13,Pacers,, Tyrese Haliburton,placed on IL with bone bruise in left knee,Knee,1630169,22200622.0,22022.0,2023-01-11,2.0,True
+2023-03-02,Pacers,, Tyrese Haliburton,placed on IL with sore calf,Calf,1630169,22200929.0,22022.0,2023-02-28,2.0,True
+2023-03-11,Pacers,, Tyrese Haliburton,placed on IL with bruised left knee,Knee,1630169,22200993.0,22022.0,2023-03-09,2.0,True
+2023-03-16,Pacers,, Tyrese Haliburton,placed on IL with sprained right ankle,Ankle,1630169,22200993.0,22022.0,2023-03-09,7.0,True
+2023-03-28,Pacers,, Tyrese Haliburton,placed on IL with right ankle injury,Ankle,1630169,22201107.0,22022.0,2023-03-25,3.0,True
+2022-10-26,Spurs,, Devin Vassell,placed on IL with sore left knee,Knee,1630170,22200050.0,22022.0,2022-10-24,2.0,True
+2022-12-08,Spurs,, Devin Vassell,placed on IL with sore left knee,Knee,1630170,22200345.0,22022.0,2022-12-04,4.0,True
+2022-12-29,Spurs,, Devin Vassell,placed on IL with sore left knee,Knee,1630170,22200511.0,22022.0,2022-12-27,2.0,True
+2023-01-04,Spurs,, Devin Vassell,placed on IL with sore left knee (surgery),Knee,1630170,22200555.0,22022.0,2023-01-02,2.0,True
+2023-03-03,Spurs,, Devin Vassell,placed on IL with left knee injury,Knee,1630170,22200944.0,22022.0,2023-03-02,1.0,True
+2023-04-08,Spurs,, Devin Vassell,placed on IL with left knee injury,Knee,1630170,22201116.0,22022.0,2023-03-26,13.0,True
+2023-03-31,Cavaliers,, Isaac Okoro,placed on IL with sore left knee,Knee,1630171,,,,,False
+2022-11-10,Raptors,, Precious Achiuwa,placed on IL with torn ligament in right ankle,Ankle,1630173,22200165.0,22022.0,2022-11-09,1.0,True
+2022-12-23,Pacers,, Aaron Nesmith,placed on IL with sprained right ankle,Ankle,1630174,22200469.0,22022.0,2022-12-21,2.0,True
+2022-11-19,Pistons,, Saddiq Bey,placed on IL with sprained right ankle,Ankle,1630180,22200234.0,22022.0,2022-11-18,1.0,True
+2023-04-07,Pacers,, Jalen Smith,placed on IL with sore right knee,Knee,1630188,,,,,False
+2023-04-02,Nuggets,, Zeke Nnaji,placed on IL with knee injury,Knee,1630192,,,,,False
+2022-11-21,Thunder,, Aleksej Pokusevski,placed on IL with sprained left ankle,Ankle,1630197,22200229.0,22022.0,2022-11-18,3.0,True
+2022-10-31,Grizzlies,, Desmond Bane,placed on IL with right ankle injury,Ankle,1630217,22200087.0,22022.0,2022-10-29,2.0,True
+2023-01-27,Grizzlies,, Desmond Bane,placed on IL with sore right knee,Knee,1630217,22200726.0,22022.0,2023-01-25,2.0,True
+2023-01-27,Rockets,, Jalen Green,placed on IL with bruised right calf,Calf,1630224,22200733.0,22022.0,2023-01-26,1.0,True
+2022-12-04,Wizards,, Isaiah Todd,placed on IL with strained right hamstring,Hamstring,1630225,22200300.0,22022.0,2022-11-28,6.0,True
+2023-03-09,Warriors,, Jonathan Kuminga,placed on IL with sprained left ankle,Ankle,1630228,,,,,False
+2022-10-19,Rockets,, Jae'Sean Tate,placed on IL with ankle injury,Ankle,1630256,,,,,False
+2023-01-26,Rockets,, Jae'Sean Tate,placed on IL with right ankle injury,Ankle,1630256,22200722.0,22022.0,2023-01-25,1.0,True
+2023-03-03,Rockets,, Jae'Sean Tate,placed on IL with right ankle injury,Ankle,1630256,22200938.0,22022.0,2023-03-01,2.0,True
+2023-03-21,Rockets,, Jae'Sean Tate,placed on IL with sore left knee,Knee,1630256,22201067.0,22022.0,2023-03-19,2.0,True
+2022-12-14,Thunder,, Jeremiah Robinson-Earl,placed on IL with sprained right ankle,Ankle,1630526,22200405.0,22022.0,2022-12-12,2.0,True
+2022-10-25,Pelicans,, Herbert Jones / Herb Jones (Keyshawn),placed on IL with hyperextended right knee,Knee,1630529,22200040.0,22022.0,2022-10-23,2.0,True
+2022-12-01,Pelicans,, Herbert Jones / Herb Jones (Keyshawn),placed on IL with sore left ankle,Ankle,1630529,22200318.0,22022.0,2022-11-30,1.0,True
+2022-11-07,Pacers,, Chris Duarte,placed on IL with sprained left ankle,Ankle,1630537,22200121.0,22022.0,2022-11-04,3.0,True
+2023-03-16,Pacers,, Chris Duarte,placed on IL with sore left ankle,Ankle,1630537,22201020.0,22022.0,2023-03-13,3.0,True
+2023-03-26,Pacers,, Chris Duarte,placed on IL with sore left ankle,Ankle,1630537,22201107.0,22022.0,2023-03-25,1.0,True
+2023-02-11,Hornets,, Kai Jones,placed on IL with sprained left ankle,Ankle,1630539,22200718.0,22022.0,2023-01-24,18.0,False
+2022-11-28,Hawks,, Jalen Johnson,placed on IL with sore right ankle,Ankle,1630552,22200293.0,22022.0,2022-11-27,1.0,True
+2023-03-17,Hawks,, Jalen Johnson,placed on IL with strained left hamstring,Hamstring,1630552,22201021.0,22022.0,2023-03-13,4.0,True
+2023-02-06,Blazers,, Keon Johnson,placed on IL with sprained right ankle,Ankle,1630553,22200751.0,22022.0,2023-01-28,9.0,True
+2023-04-09,Kings,, Davion Mitchell,placed on IL with sore left knee,Knee,1630558,,,,,False
+2022-12-19,Lakers,, Austin Reaves,placed on IL with sprained right ankle,Ankle,1630559,22200451.0,22022.0,2022-12-18,1.0,True
+2023-01-09,Lakers,, Austin Reaves,placed on IL with strained left hamstring,Hamstring,1630559,22200574.0,22022.0,2023-01-04,5.0,True
+2022-10-24,Raptors,, Scottie Barnes,placed on IL with sprained right ankle,Ankle,1630567,22200031.0,22022.0,2022-10-22,2.0,True
+2022-11-23,Raptors,, Scottie Barnes,placed on IL with left knee injury,Knee,1630567,22200235.0,22022.0,2022-11-19,4.0,True
+2023-03-22,Raptors,, Joe Wieskamp,placed on IL with strained right hamstring,Hamstring,1630580,,,,,False
+2022-10-24,Thunder,, Josh Giddey,placed on IL with ankle injury,Ankle,1630581,22200041.0,22022.0,2022-10-23,1.0,True
+2023-03-01,Pistons,, Isaiah Livers,placed on IL with sprained left ankle,Ankle,1630587,,,,,False
+2022-10-22,Magic,, Jalen Suggs,placed on IL with sprained right ankle,Ankle,1630591,22200020.0,22022.0,2022-10-21,1.0,True
+2022-11-26,Raptors,, Dalano Banton,placed on IL with sprained left ankle,Ankle,1630625,22200215.0,22022.0,2022-11-16,10.0,True
+2023-01-24,Pelicans,, Dyson Daniels,placed on IL with sprained right ankle,Ankle,1630700,22200716.0,22022.0,2023-01-24,0.0,True
+2022-11-27,Pistons,, Jaden Ivey,placed on IL with sore right knee,Knee,1631093,22200270.0,22022.0,2022-11-23,4.0,True
+2022-11-11,Magic,, Paolo Banchero,placed on IL with sprained left ankle,Ankle,1631094,22200145.0,22022.0,2022-11-07,4.0,True
+2023-01-21,Rockets,, Jabari Smith Jr.,placed on IL with sprained right ankle,Ankle,1631095,22200671.0,22022.0,2023-01-18,3.0,True
+2023-03-10,Pacers,, Bennedict Mathurin,placed on IL with sprained right ankle,Ankle,1631097,,,,,False
+2022-11-01,Spurs,, Blake Wesley,placed on IL with left knee injury,Knee,1631104,22200092.0,22022.0,2022-10-30,2.0,True
+2022-10-31,Pistons,, Jalen Duren,placed on IL with sprained left ankle,Ankle,1631105,22200091.0,22022.0,2022-10-30,1.0,True
+2023-01-10,Pistons,, Jalen Duren,placed on IL with sore right ankle,Ankle,1631105,22200585.0,22022.0,2023-01-06,4.0,True
+2023-02-24,Pistons,, Jalen Duren,placed on IL with sore ankle,Ankle,1631105,22200888.0,22022.0,2023-02-23,1.0,True
+2022-11-16,Hornets,, Mark Williams,placed on IL with sprained left ankle,Ankle,1631109,22200071.0,22022.0,2022-10-28,19.0,False
+2023-03-05,Spurs,, Jeremy Sochan,placed on IL with sore right knee,Knee,1631110,,,,,False
+2023-03-12,Spurs,, Jeremy Sochan,placed on IL with sore right knee,Knee,1631110,,,,,False
+2023-03-15,Spurs,, Jeremy Sochan,placed on IL with right knee injury,Knee,1631110,,,,,False
+2023-03-19,Spurs,, Jeremy Sochan,placed on IL with sore right knee,Knee,1631110,,,,,False
+2023-03-28,Spurs,, Jeremy Sochan,placed on IL with sore right knee,Knee,1631110,,,,,False
+2022-11-28,Nuggets,, Peyton Watson,placed on IL with strained right hamstring,Hamstring,1631212,22200285.0,22022.0,2022-11-25,3.0,True
+2022-12-04,Nuggets,, Peyton Watson,placed on IL with strained right hamstring,Hamstring,1631212,22200285.0,22022.0,2022-11-25,9.0,True
