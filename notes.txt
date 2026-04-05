@@ -2,3 +2,7 @@ Required Packages:
 #!pip install nba_api
 #!pip install kagglehub
 #!pip install rapidfuzz
+#!pip install lightgbm
+#!pip install imbalanced-learn
+#!!pip install tensorflow
+!!pip install torch
