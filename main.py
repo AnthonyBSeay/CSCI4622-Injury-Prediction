@@ -6,7 +6,7 @@ from src.models.RNN import train_rnn_from_csv
 import pandas as pd
 
 # -----------------------------
-# 1 Define FeaturesS
+# 1 Define Features
 # -----------------------------
 feature_cols = [
     "minutes_float", "distance", "speed",
@@ -72,6 +72,6 @@ rnn_results = train_rnn_from_csv(
     feature_cols=feature_cols,
     target_col="injury",
     sequence_length=5,
-    epochs=20
+    epochs=10
 )
 

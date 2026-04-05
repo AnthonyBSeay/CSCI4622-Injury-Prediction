@@ -1,6 +1,7 @@
 # =============================
 # RNN.py
 # Injury Prediction using LSTM (PyTorch)
+# Improved: Weighted loss, rare-event handling, SMOTE+ENN
 # =============================
 
 import pandas as pd
@@ -9,8 +10,10 @@ import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import roc_auc_score, classification_report, confusion_matrix
-from sklearn.metrics import precision_recall_curve
+from sklearn.metrics import (
+    classification_report, confusion_matrix, precision_recall_curve, auc
+)
+from imblearn.combine import SMOTEENN
 
 # -----------------------------
 # 1️⃣ Sequence Dataset
@@ -35,12 +38,11 @@ class InjuryLSTM(nn.Module):
         super().__init__()
         self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
         self.fc = nn.Linear(hidden_size, 1)
-        self.sigmoid = nn.Sigmoid()
 
     def forward(self, x):
         _, (hn, _) = self.lstm(x)
         out = self.fc(hn[-1])
-        return self.sigmoid(out)
+        return out  # raw logits!
 
 
 # -----------------------------
@@ -50,16 +52,12 @@ def create_sequences(df, feature_cols, target_col, sequence_length=5):
     sequences = []
     labels = []
 
-    # ⚠️ MUST have player_id + date
     df = df.sort_values(["PLAYER_ID", "GAME_DATE"])
-
     for player_id, group in df.groupby("PLAYER_ID"):
         group = group.reset_index(drop=True)
-
         for i in range(len(group) - sequence_length):
             seq = group[feature_cols].iloc[i:i+sequence_length].values
             label = group[target_col].iloc[i+sequence_length]
-
             sequences.append(seq)
             labels.append(label)
 
@@ -75,8 +73,9 @@ def train_rnn_from_csv(
     target_col="injury",
     sequence_length=5,
     batch_size=64,
-    epochs=10,
-    lr=0.001
+    epochs=20,
+    lr=0.001,
+    use_smoteenn=True
 ):
     print("Loading data...")
     df = pd.read_csv(csv_path)
@@ -91,7 +90,6 @@ def train_rnn_from_csv(
     # Create sequences
     # -----------------------------
     X, y = create_sequences(df, feature_cols, target_col, sequence_length)
-
     print(f"Created {len(X)} sequences of length {sequence_length}")
 
     # -----------------------------
@@ -101,22 +99,49 @@ def train_rnn_from_csv(
     X_train, X_test = X[:split], X[split:]
     y_train, y_test = y[:split], y[split:]
 
-    train_dataset = InjuryDataset(X_train, y_train)
-    test_dataset = InjuryDataset(X_test, y_test)
+    # -----------------------------
+    # Flatten sequences for resampling
+    # -----------------------------
+    X_train_flat = X_train.reshape(X_train.shape[0], -1)
 
+    # -----------------------------
+    # Apply SMOTE/SMOTE+ENN
+    # -----------------------------
+    if use_smoteenn:
+        sampler = SMOTEENN(random_state=42)
+        X_train_res, y_train_res = sampler.fit_resample(X_train_flat, y_train)
+    else:
+        from imblearn.over_sampling import SMOTE
+        sampler = SMOTE(random_state=42)
+        X_train_res, y_train_res = sampler.fit_resample(X_train_flat, y_train)
+
+    X_train_res = X_train_res.reshape(-1, sequence_length, len(feature_cols))
+    print(f"After resampling, training dataset size: {X_train_res.shape[0]}")
+
+    # -----------------------------
+    # Datasets & Loaders
+    # -----------------------------
+    train_dataset = InjuryDataset(X_train_res, y_train_res)
+    test_dataset = InjuryDataset(X_test, y_test)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_size)
 
     # -----------------------------
-    # Model
+    # Device & Model
     # -----------------------------
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print("Device used for torch:", device)
 
     model = InjuryLSTM(input_size=len(feature_cols)).to(device)
 
-    pos_weight = torch.tensor([len(y_train[y_train==0]) / len(y_train[y_train==1])])
-
+    # -----------------------------
+    # Weighted loss for rare class
+    # -----------------------------
+    num_pos = np.sum(y_train_res == 1)
+    num_neg = np.sum(y_train_res == 0)
+    pos_weight = torch.tensor([num_neg / num_pos]).to(device)
     criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
+
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
     # -----------------------------
@@ -126,59 +151,58 @@ def train_rnn_from_csv(
     for epoch in range(epochs):
         model.train()
         total_loss = 0
-
         for X_batch, y_batch in train_loader:
-            X_batch, y_batch = X_batch.to(device), y_batch.to(device)
+            X_batch, y_batch = X_batch.to(device), y_batch.to(device).unsqueeze(1)
 
             optimizer.zero_grad()
-            outputs = model(X_batch).squeeze()
-
-            loss = criterion(outputs, y_batch)
+            logits = model(X_batch)
+            loss = criterion(logits, y_batch)
             loss.backward()
             optimizer.step()
 
             total_loss += loss.item()
 
         avg_loss = total_loss / len(train_loader)
-
         print(f"Epoch {epoch+1}, Loss: {avg_loss:.4f}")
 
     # -----------------------------
     # Evaluation
     # -----------------------------
     model.eval()
-    y_probs = []
-    y_true = []
+    y_logits, y_true = [], []
 
     with torch.no_grad():
         for X_batch, y_batch in test_loader:
             X_batch = X_batch.to(device)
-            outputs = model(X_batch).squeeze().cpu().numpy()
-
-            y_probs.extend(outputs)
+            logits = model(X_batch).squeeze().cpu()
+            y_logits.extend(logits.numpy())
             y_true.extend(y_batch.numpy())
 
-    y_probs = np.array(y_probs)
+    y_logits = np.array(y_logits)
     y_true = np.array(y_true)
 
-    threshold = 0.01
-    y_pred = (y_probs >= threshold).astype(int)
+    # Convert logits to probabilities
+    y_probs = 1 / (1 + np.exp(-y_logits))
 
-    print("\n=== RNN Evaluation ===")
-    print("Confusion Matrix:\n", confusion_matrix(y_true, y_pred))
-    print("\nClassification Report:\n", classification_report(y_true, y_pred))
-    print("ROC-AUC:", roc_auc_score(y_true, y_probs))
-
-    precision, recall, thresholds = precision_recall_curve(y_true, probs)
-
+    # Find threshold that maximizes F1
+    precision, recall, thresholds = precision_recall_curve(y_true, y_probs)
     f1_scores = 2 * (precision * recall) / (precision + recall + 1e-8)
-
     best_idx = f1_scores.argmax()
     best_threshold = thresholds[best_idx]
 
-    print("Best Threshold:", best_threshold)
+    # Predictions using F1-max threshold
+    y_pred = (y_probs >= best_threshold).astype(int)
+
+    print("\n=== RNN Evaluation ===")
+    print("Confusion Matrix:\n", confusion_matrix(y_true, y_pred))
+    print("\nClassification Report:\n", classification_report(y_true, y_pred, zero_division=0))
+    pr_auc = auc(recall, precision)
+    print("PR-AUC:", pr_auc)
+    print("Best Threshold (F1-max):", best_threshold)
+
     return {
         "model": model,
         "y_probs": y_probs,
-        "y_pred": y_pred
+        "y_pred": y_pred,
+        "best_threshold": best_threshold
     }
