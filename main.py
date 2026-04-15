@@ -1,6 +1,6 @@
 # main.py
 
-from src.models.logistic import train_logistic_model_from_csv
+from src.models.logistic import train_logistic_model_from_csv, plot_logistic_results
 from src.models.gradient_boosting import gradient_boosting_pipeline
 from src.models.RNN import train_rnn_from_csv
 import pandas as pd
@@ -27,17 +27,15 @@ feature_cols = [
 # -----------------------------
 # 2 Logistic Regression
 # -----------------------------
-# results_logistic = train_logistic_model_from_csv(
-#     csv_path="data/model_ready_data.csv",
-#     target_col="injury",
-#     feature_cols=feature_cols,
-#     threshold=0.05,
-#     verbose=True
-# )
+results_logistic = train_logistic_model_from_csv(
+    csv_path="data/model_ready_data.csv",
+    target_col="injury",
+    feature_cols=feature_cols,
+    threshold=0.05,
+    verbose=True
+)
 
-# print("\n=== Logistic Regression Metrics ===")
-# print("ROC-AUC:", results_logistic["roc_auc"])
-# print("Top 10 features:\n", results_logistic["feature_importance"].head(10))
+plot_logistic_results(results_logistic)
 
 # -----------------------------
 # 3 Gradient Boosting (XGBoost + LightGBM)
@@ -65,13 +63,13 @@ feature_cols = [
 # -----------------------------
 # 4 LSTM
 # -----------------------------
-print("\n=== RNN Model ===")
+# print("\n=== RNN Model ===")
 
-rnn_results = train_rnn_from_csv(
-    csv_path="data/model_ready_data.csv",
-    feature_cols=feature_cols,
-    target_col="injury",
-    sequence_length=5,
-    epochs=10
-)
+# rnn_results = train_rnn_from_csv(
+#     csv_path="data/model_ready_data.csv",
+#     feature_cols=feature_cols,
+#     target_col="injury",
+#     sequence_length=5,
+#     epochs=10
+# )
 

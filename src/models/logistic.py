@@ -1,6 +1,7 @@
-# logistic.py
 # =============================
+# logistic.py
 # Logistic Regression Injury Model (SMOTE + Undersampling)
+# Final-project version: detailed explanations and rationale
 # =============================
 
 import pandas as pd
@@ -12,7 +13,7 @@ from sklearn.metrics import (
     confusion_matrix, classification_report, roc_auc_score,
     precision_recall_curve
 )
-from imblearn.combine import SMOTEENN
+from imblearn.combine import SMOTEENN  # Handles class imbalance using oversampling + cleaning
 
 
 def train_logistic_model_from_csv(
@@ -25,27 +26,31 @@ def train_logistic_model_from_csv(
     verbose: bool = True
 ):
     """
-    Train a logistic regression model on CSV data using SMOTE + undersampling.
+    Train a logistic regression model on CSV data using SMOTE + ENN undersampling.
+    Designed for rare-event injury prediction with class imbalance.
 
     Parameters
     ----------
     csv_path : str
-        Path to CSV file containing features and target
+        Path to CSV file containing features and target.
     target_col : str
-        Column name of the target variable
+        Column name of the target variable (binary: injury/no injury).
+    feature_cols : list
+        Optional subset of columns to use as features. If None, auto-select all except dropped columns.
     test_size : float
-        Fraction of data to hold out for testing
+        Fraction of data to hold out for testing (default 0.2).
     threshold : float
-        Probability threshold for predicting positive class
+        Probability threshold for predicting positive class (injury).
+        Default 0.05 is low to catch rare injuries.
     random_state : int
-        Random seed for reproducibility
+        Seed for reproducibility.
     verbose : bool
-        If True, prints metrics and feature importance
+        If True, prints metrics and feature importance.
 
     Returns
     -------
     dict
-        Dictionary containing trained model, scaler, test sets, predictions, and metrics
+        Dictionary containing trained model, scaler, test sets, predictions, and evaluation metrics.
     """
 
     # -----------------------------
@@ -55,25 +60,27 @@ def train_logistic_model_from_csv(
     if verbose:
         print(f"Data loaded: {df.shape[0]} rows, {df.shape[1]} columns")
 
-    # Drop non-feature columns
+    # Drop irrelevant/non-feature columns that do not contribute to prediction
     drop_cols = [
         "SEASON_ID", "PLAYER_ID", "GAME_ID", "GAME_DATE",
         "MATCHUP", "injury_type", "gameId", "personId", "prev_game_date"
     ]
     df = df.drop(columns=[c for c in drop_cols if c in df.columns])
 
-    # Drop rows with missing target
+    # Remove rows with missing target
     df = df.dropna(subset=[target_col])
 
     # -----------------------------
     # 1️⃣ Split features & target
     # -----------------------------
-    # Split features & target
+    # Target variable (binary)
     y = df[target_col].astype(int)
 
+    # Features
     if feature_cols is not None:
         X = df[feature_cols]
     else:
+        # Auto-select all columns except dropped ones
         drop_cols = [
             "SEASON_ID", "PLAYER_ID", "GAME_ID", "GAME_DATE",
             "MATCHUP", "injury_type", "gameId", "personId", "prev_game_date"
@@ -83,23 +90,29 @@ def train_logistic_model_from_csv(
     # -----------------------------
     # 2️⃣ Train-Test Split
     # -----------------------------
+    # Stratify ensures class balance is preserved in train and test
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=test_size, stratify=y, random_state=random_state
     )
 
     # -----------------------------
-    # 3️⃣ SMOTE + Undersampling
+    # 3️⃣ Handle class imbalance: SMOTE + ENN
     # -----------------------------
+    # Rare injuries may bias the model towards predicting 'no injury'.
+    # SMOTE: oversample minority class by synthetic generation.
+    # ENN: removes ambiguous/overlapping samples to reduce noise.
     smote_enn = SMOTEENN(random_state=random_state)
     X_train_resampled, y_train_resampled = smote_enn.fit_resample(X_train, y_train)
 
     if verbose:
         print("Before Resampling:", np.bincount(y_train))
         print("After Resampling:", np.bincount(y_train_resampled))
+        # Useful to show how class balance improved
 
     # -----------------------------
     # 4️⃣ Feature Scaling
     # -----------------------------
+    # Standardization improves convergence and avoids coefficient scaling issues
     scaler = StandardScaler()
     X_train_scaled = scaler.fit_transform(X_train_resampled)
     X_test_scaled = scaler.transform(X_test)
@@ -107,9 +120,10 @@ def train_logistic_model_from_csv(
     # -----------------------------
     # 5️⃣ Train Logistic Regression
     # -----------------------------
+    # No class_weight since we've resampled
     logreg = LogisticRegression(
-        class_weight=None,  # OFF since we resampled
-        max_iter=1000,
+        class_weight=None,
+        max_iter=1000,  # Ensure convergence
         random_state=random_state
     )
     logreg.fit(X_train_scaled, y_train_resampled)
@@ -117,20 +131,25 @@ def train_logistic_model_from_csv(
     # -----------------------------
     # 6️⃣ Predictions
     # -----------------------------
+    # Predict probabilities for positive class
     y_probs = logreg.predict_proba(X_test_scaled)[:, 1]
+    # Apply custom threshold (low for rare-event detection)
     y_pred = (y_probs >= threshold).astype(int)
 
     # -----------------------------
-    # 7️⃣ Evaluation
+    # 7️⃣ Evaluation Metrics
     # -----------------------------
+    # Confusion matrix, classification report, ROC-AUC, PR curve
     cm = confusion_matrix(y_test, y_pred)
     cr = classification_report(y_test, y_pred, output_dict=True)
     roc_auc = roc_auc_score(y_test, y_probs)
     precision, recall, thresholds = precision_recall_curve(y_test, y_probs)
+    # PR curve is more informative than ROC for imbalanced datasets
 
     # -----------------------------
     # 8️⃣ Feature Importance
     # -----------------------------
+    # Absolute values of coefficients reflect impact on injury prediction
     feature_importance = pd.Series(
         np.abs(logreg.coef_[0]), index=X.columns
     ).sort_values(ascending=False)
@@ -141,6 +160,9 @@ def train_logistic_model_from_csv(
         print("\nROC-AUC Score:", roc_auc)
         print("\nTop 10 Features Influencing Injury Risk:\n", feature_importance.head(10))
 
+    # -----------------------------
+    # Return model and results for analysis or reporting
+    # -----------------------------
     return {
         "model": logreg,
         "scaler": scaler,
@@ -155,7 +177,86 @@ def train_logistic_model_from_csv(
         "feature_importance": feature_importance
     }
 
+import matplotlib.pyplot as plt
+from sklearn.metrics import roc_curve, auc
+
+
+def plot_logistic_results(results: dict, model_name: str = "Logistic Regression", top_n_features: int = 10):
+    """
+    Generate evaluation plots for logistic regression results.
+
+    Parameters
+    ----------
+    results : dict
+        Output dictionary from train_logistic_model_from_csv.
+    model_name : str
+        Name to display in plot titles.
+    top_n_features : int
+        Number of top features to display in importance plot.
+    """
+
+    y_test = results["y_test"]
+    y_pred = results["y_pred"]
+    y_probs = results["y_probs"]
+    cm = results["confusion_matrix"]
+    precision, recall, _ = results["precision_recall_curve"]
+    roc_auc = results["roc_auc"]
+    feature_importance = results["feature_importance"]
+
+    # -----------------------------
+    # 1️⃣ Confusion Matrix
+    # -----------------------------
+    plt.figure()
+    plt.imshow(cm)
+    plt.title(f"{model_name} - Confusion Matrix")
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
+
+    for i in range(cm.shape[0]):
+        for j in range(cm.shape[1]):
+            plt.text(j, i, cm[i, j], ha="center", va="center")
+
+    plt.tight_layout()
+    plt.show()
+
+    # -----------------------------
+    # 2️⃣ ROC Curve
+    # -----------------------------
+    fpr, tpr, _ = roc_curve(y_test, y_probs)
+
+    plt.figure()
+    plt.plot(fpr, tpr, label=f"AUC = {roc_auc:.3f}")
+    plt.plot([0, 1], [0, 1], linestyle="--")
+    plt.title(f"{model_name} - ROC Curve")
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.legend()
+    plt.show()
+
+    # -----------------------------
+    # 3️⃣ Precision-Recall Curve
+    # -----------------------------
+    plt.figure()
+    plt.plot(recall, precision)
+    plt.title(f"{model_name} - Precision-Recall Curve")
+    plt.xlabel("Recall")
+    plt.ylabel("Precision")
+    plt.show()
+
+    # -----------------------------
+    # 4️⃣ Feature Importance
+    # -----------------------------
+    top_features = feature_importance.head(top_n_features)
+
+    plt.figure()
+    top_features.sort_values().plot(kind="barh")
+    plt.title(f"{model_name} - Top {top_n_features} Features")
+    plt.xlabel("Importance (|Coefficient|)")
+    plt.tight_layout()
+    plt.show()
+
 
 # Example usage
 if __name__ == "__main__":
+    # This allows direct testing when running the file
     results = train_logistic_model_from_csv("data/model_ready_data.csv", verbose=True)
