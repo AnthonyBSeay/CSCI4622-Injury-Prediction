@@ -233,30 +233,17 @@ from sklearn.metrics import roc_curve, auc
 
 
 def plot_logistic_results(results: dict, model_name: str = "Logistic Regression", top_n_features: int = 10):
-    """
-    Generate evaluation plots for logistic regression results.
-
-    Parameters
-    ----------
-    results : dict
-        Output dictionary from train_logistic_model_from_csv.
-    model_name : str
-        Name to display in plot titles.
-    top_n_features : int
-        Number of top features to display in importance plot.
-    """
 
     y_test = results["y_test"]
-    y_pred = results["y_pred"]
     y_probs = results["y_probs"]
     cm = results["confusion_matrix"]
-    precision, recall, _ = results["precision_recall_curve"]
+    precision, recall, pr_thresholds = results["precision_recall_curve"]
     roc_auc = results["roc_auc"]
     feature_importance = results["feature_importance"]
 
-    # -----------------------------
-    # 1️⃣ Confusion Matrix
-    # -----------------------------
+    # =========================================================
+    # 1️⃣ CONFUSION MATRIX
+    # =========================================================
     plt.figure()
     plt.imshow(cm)
     plt.title(f"{model_name} - Confusion Matrix")
@@ -270,9 +257,9 @@ def plot_logistic_results(results: dict, model_name: str = "Logistic Regression"
     plt.tight_layout()
     plt.show()
 
-    # -----------------------------
-    # 2️⃣ ROC Curve
-    # -----------------------------
+    # =========================================================
+    # 2️⃣ ROC CURVE
+    # =========================================================
     fpr, tpr, _ = roc_curve(y_test, y_probs)
 
     plt.figure()
@@ -284,9 +271,9 @@ def plot_logistic_results(results: dict, model_name: str = "Logistic Regression"
     plt.legend()
     plt.show()
 
-    # -----------------------------
-    # 3️⃣ Precision-Recall Curve
-    # -----------------------------
+    # =========================================================
+    # 3️⃣ PRECISION-RECALL CURVE
+    # =========================================================
     plt.figure()
     plt.plot(recall, precision)
     plt.title(f"{model_name} - Precision-Recall Curve")
@@ -294,9 +281,44 @@ def plot_logistic_results(results: dict, model_name: str = "Logistic Regression"
     plt.ylabel("Precision")
     plt.show()
 
-    # -----------------------------
-    # 4️⃣ Feature Importance
-    # -----------------------------
+    # =========================================================
+    # 4️⃣ THRESHOLD TRADEOFF PLOT (NEW)
+    # =========================================================
+    thresholds = np.linspace(0.01, 0.99, 100)
+
+    precisions = []
+    recalls = []
+    f1s = []
+
+    for t in thresholds:
+        preds = (y_probs >= t).astype(int)
+
+        tp = np.sum((preds == 1) & (y_test == 1))
+        fp = np.sum((preds == 1) & (y_test == 0))
+        fn = np.sum((preds == 0) & (y_test == 1))
+
+        precision_t = tp / (tp + fp + 1e-8)
+        recall_t = tp / (tp + fn + 1e-8)
+        f1_t = 2 * precision_t * recall_t / (precision_t + recall_t + 1e-8)
+
+        precisions.append(precision_t)
+        recalls.append(recall_t)
+        f1s.append(f1_t)
+
+    plt.figure()
+    plt.plot(thresholds, precisions, label="Precision")
+    plt.plot(thresholds, recalls, label="Recall")
+    plt.plot(thresholds, f1s, label="F1 Score")
+
+    plt.title(f"{model_name} - Threshold Tradeoff")
+    plt.xlabel("Threshold")
+    plt.ylabel("Score")
+    plt.legend()
+    plt.show()
+
+    # =========================================================
+    # 5️⃣ FEATURE IMPORTANCE
+    # =========================================================
     top_features = feature_importance.head(top_n_features)
 
     plt.figure()
@@ -305,7 +327,6 @@ def plot_logistic_results(results: dict, model_name: str = "Logistic Regression"
     plt.xlabel("Importance (|Coefficient|)")
     plt.tight_layout()
     plt.show()
-
 
 # Example usage
 if __name__ == "__main__":

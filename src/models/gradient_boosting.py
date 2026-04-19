@@ -6,8 +6,9 @@
 
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix, classification_report, roc_auc_score, precision_recall_curve
+from sklearn.metrics import confusion_matrix, classification_report, roc_auc_score, precision_recall_curve, roc_curve, auc
 import xgboost as xgb
 import lightgbm as lgb
 from imblearn.combine import SMOTEENN  # Combines SMOTE oversampling + Edited Nearest Neighbors undersampling
@@ -108,7 +109,8 @@ def gradient_boosting_pipeline(X, y, model_type="both", threshold=0.05, test_siz
             'y_probs': y_probs_xgb,
             'y_pred': y_pred_xgb,
             'feature_importances': feat_imp_xgb,
-            'precision_recall': precision_recall_curve(y_test, y_probs_xgb)
+            'precision_recall': precision_recall_curve(y_test, y_probs_xgb),
+            'y_test': y_test
         }
 
     # -----------------------------
@@ -125,7 +127,7 @@ def gradient_boosting_pipeline(X, y, model_type="both", threshold=0.05, test_siz
             min_gain_to_split=0.0,  # allow smaller splits
             verbose=-1              # 🔥 THIS removes warnings
         )
-        
+
         lgb_model.fit(X_train_res, y_train_res)
 
         y_probs_lgb = lgb_model.predict_proba(X_test)[:, 1]
@@ -144,11 +146,61 @@ def gradient_boosting_pipeline(X, y, model_type="both", threshold=0.05, test_siz
             'y_probs': y_probs_lgb,
             'y_pred': y_pred_lgb,
             'feature_importances': feat_imp_lgb,
-            'precision_recall': precision_recall_curve(y_test, y_probs_lgb)
+            'precision_recall': precision_recall_curve(y_test, y_probs_lgb),
+            'y_test': y_test
         }
 
     return results
 
+def plot_gradient_boosting_results(results, model_name="Gradient Boosting"):
+    """
+    Plots ROC, PR curve, and feature importance for XGBoost / LightGBM.
+    """
+
+    def plot_single(model_results, name):
+        y_probs = model_results["y_probs"]
+        y_pred = model_results["y_pred"]
+        model = model_results["model"]
+        feat_imp = model_results["feature_importances"]
+        precision, recall, _ = model_results["precision_recall"]
+
+        # ---------------- ROC ----------------
+        fpr, tpr, _ = roc_curve(y_test_global, y_probs)
+        roc_auc = auc(fpr, tpr)
+
+        plt.figure()
+        plt.plot(fpr, tpr, label=f"AUC = {roc_auc:.3f}")
+        plt.plot([0, 1], [0, 1], linestyle="--")
+        plt.title(f"{name} - ROC Curve")
+        plt.xlabel("False Positive Rate")
+        plt.ylabel("True Positive Rate")
+        plt.legend()
+        plt.show()
+
+        # ---------------- PR Curve ----------------
+        plt.figure()
+        plt.plot(recall, precision)
+        plt.title(f"{name} - Precision-Recall Curve")
+        plt.xlabel("Recall")
+        plt.ylabel("Precision")
+        plt.show()
+
+        # ---------------- Feature Importance ----------------
+        plt.figure()
+        feat_imp.head(10).sort_values().plot(kind="barh")
+        plt.title(f"{name} - Top 10 Features")
+        plt.tight_layout()
+        plt.show()
+
+
+    global y_test_global
+    y_test_global = results["xgb"]["y_test"] if "xgb" in results else results["lgb"]["y_test"]
+
+    if "xgb" in results:
+        plot_single(results["xgb"], "XGBoost")
+
+    if "lgb" in results:
+        plot_single(results["lgb"], "LightGBM")
 
 # ==============================
 # Example usage (if run as script)

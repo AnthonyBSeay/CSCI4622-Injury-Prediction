@@ -9,11 +9,11 @@ import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import auc, classification_report
 from sklearn.metrics import (
-    classification_report,
-    confusion_matrix,
+    roc_curve, auc,
     precision_recall_curve,
-    auc
+    confusion_matrix
 )
 import matplotlib.pyplot as plt
 
@@ -272,3 +272,102 @@ def train_rnn_from_csv(
         "precision_threshold": precision_threshold,
         "pr_auc": pr_auc
     }
+
+# =============================
+# 6️⃣ RNN Evaluation Plots (MATCHES OTHER MODELS)
+# =============================
+
+def plot_rnn_results(results, model_name="RNN"):
+    """
+    Standardized evaluation plots:
+    - ROC Curve
+    - Precision-Recall Curve
+    - Confusion Matrix (F1-optimal threshold)
+    - Threshold tradeoff curve
+    """
+
+    y_true = results["y_true"]
+    y_probs = results["y_probs"]
+    f1_threshold = results["f1_threshold"]
+
+    # -----------------------------
+    # ROC Curve
+    # -----------------------------
+    fpr, tpr, _ = roc_curve(y_true, y_probs)
+    roc_auc = auc(fpr, tpr)
+
+    plt.figure()
+    plt.plot(fpr, tpr, label=f"AUC = {roc_auc:.3f}")
+    plt.plot([0, 1], [0, 1], linestyle="--")
+    plt.title(f"{model_name} - ROC Curve")
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.legend()
+    plt.show()
+
+    # -----------------------------
+    # Precision-Recall Curve
+    # -----------------------------
+    precision, recall, _ = precision_recall_curve(y_true, y_probs)
+    pr_auc = auc(recall, precision)
+
+    plt.figure()
+    plt.plot(recall, precision, label=f"PR-AUC = {pr_auc:.3f}")
+    plt.title(f"{model_name} - Precision-Recall Curve")
+    plt.xlabel("Recall")
+    plt.ylabel("Precision")
+    plt.legend()
+    plt.show()
+
+    # -----------------------------
+    # Confusion Matrix (F1 optimal threshold)
+    # -----------------------------
+    preds = (y_probs >= f1_threshold).astype(int)
+    cm = confusion_matrix(y_true, preds)
+
+    plt.figure()
+    plt.imshow(cm)
+    plt.title(f"{model_name} - Confusion Matrix (F1 Threshold)")
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
+
+    for i in range(cm.shape[0]):
+        for j in range(cm.shape[1]):
+            plt.text(j, i, cm[i, j], ha="center", va="center")
+
+    plt.tight_layout()
+    plt.show()
+
+    # -----------------------------
+    # Threshold tradeoff curve (clean version)
+    # -----------------------------
+    thresholds = np.linspace(0.01, 0.99, 100)
+
+    f1_scores = []
+    precision_scores = []
+    recall_scores = []
+
+    for t in thresholds:
+        preds = (y_probs >= t).astype(int)
+
+        tp = np.sum((preds == 1) & (y_true == 1))
+        fp = np.sum((preds == 1) & (y_true == 0))
+        fn = np.sum((preds == 0) & (y_true == 1))
+
+        prec = tp / (tp + fp + 1e-8)
+        rec = tp / (tp + fn + 1e-8)
+        f1 = 2 * prec * rec / (prec + rec + 1e-8)
+
+        precision_scores.append(prec)
+        recall_scores.append(rec)
+        f1_scores.append(f1)
+
+    plt.figure()
+    plt.plot(thresholds, precision_scores, label="Precision")
+    plt.plot(thresholds, recall_scores, label="Recall")
+    plt.plot(thresholds, f1_scores, label="F1")
+    plt.title(f"{model_name} - Threshold Tradeoff")
+    plt.xlabel("Threshold")
+    plt.ylabel("Score")
+    plt.legend()
+    plt.show()

@@ -1,13 +1,20 @@
 # main.py
 
 from src.models.logistic import train_logistic_model_from_csv, plot_logistic_results
-from src.models.gradient_boosting import gradient_boosting_pipeline
-from src.models.RNN import train_rnn_from_csv
+from src.models.gradient_boosting import gradient_boosting_pipeline, plot_gradient_boosting_results
+from src.models.RNN import train_rnn_from_csv, plot_rnn_results
 import pandas as pd
 
+
 # -----------------------------
-# 1 Define Features
+# CONFIG (EDIT ONLY THIS)
 # -----------------------------
+RUN_LOGISTIC = True
+RUN_XGB = True
+RUN_LGB = True
+RUN_RNN = False
+
+
 feature_cols = [
     "minutes_float", "distance", "speed",
     "distance_per_min", "speed_per_min",
@@ -24,52 +31,61 @@ feature_cols = [
     "rolling_7d_speed_avg", "rolling_7d_load_sum"
 ]
 
-# -----------------------------
-# 2 Logistic Regression
-# -----------------------------
-results_logistic = train_logistic_model_from_csv(
-    csv_path="data/model_ready_data.csv",
-    target_col="injury",
-    feature_cols=feature_cols,
-    threshold=0.05,
-    verbose=True
-)
 
-#plot_logistic_results(results_logistic)
+# =============================
+# 1 Logistic Regression
+# =============================
+if RUN_LOGISTIC:
+    print("\n================ LOGISTIC REGRESSION ================\n")
 
-# -----------------------------
-# 3 Gradient Boosting (XGBoost + LightGBM)
-# -----------------------------
-#Load CSV manually for gradient boosting
-# df = pd.read_csv("data/model_ready_data.csv")
-# X = df[feature_cols]
-# y = df["injury"]
+    results_logistic = train_logistic_model_from_csv(
+        csv_path="data/model_ready_data.csv",
+        target_col="injury",
+        feature_cols=feature_cols,
+        threshold=0.05,
+        verbose=True
+    )
 
-# print("\n=== Gradient Boosting Models ===")
-# results_gb = gradient_boosting_pipeline(X, y, model_type="both", threshold=0.05)
+    plot_logistic_results(results_logistic)
 
-# # Access metrics for XGBoost
-# if "xgb" in results_gb:
-#     print("\n--- XGBoost ---")
-#     print("Top 10 features:\n", results_gb["xgb"]["feature_importances"].head(10))
-#     print("ROC-AUC:", results_gb["xgb"]["model"].score(X, y))
 
-# # Access metrics for LightGBM
-# if "lgb" in results_gb:
-#     print("\n--- LightGBM ---")
-#     print("Top 10 features:\n", results_gb["lgb"]["feature_importances"].head(10))
-#     print("ROC-AUC:", results_gb["lgb"]["model"].score(X, y))
+# =============================
+# 2 Gradient Boosting
+# =============================
+if RUN_XGB or RUN_LGB:
+    print("\n================ GRADIENT BOOSTING ================\n")
 
-# -----------------------------
-# 4 LSTM
-# -----------------------------
-# print("\n=== RNN Model ===")
+    df = pd.read_csv("data/model_ready_data.csv")
+    X = df[feature_cols]
+    y = df["injury"]
 
-# rnn_results = train_rnn_from_csv(
-#     csv_path="data/model_ready_data.csv",
-#     feature_cols=feature_cols,
-#     target_col="injury",
-#     sequence_length=5,
-#     epochs=25
-# )
+    model_type = "both"
+    if RUN_XGB and not RUN_LGB:
+        model_type = "xgb"
+    elif RUN_LGB and not RUN_XGB:
+        model_type = "lgb"
 
+    results_gb = gradient_boosting_pipeline(
+        X, y,
+        model_type=model_type,
+        threshold=0.05
+    )
+
+    plot_gradient_boosting_results(results_gb)
+
+
+# =============================
+# 3 RNN (optional)
+# =============================
+if RUN_RNN:
+    print("\n================ RNN MODEL ================\n")
+
+    rnn_results = train_rnn_from_csv(
+        csv_path="data/model_ready_data.csv",
+        feature_cols=feature_cols,
+        target_col="injury",
+        sequence_length=5,
+        epochs=20
+    )
+
+    plot_rnn_results(rnn_results)

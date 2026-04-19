@@ -105,6 +105,15 @@ python main.py
 
 ## Result Summary (FINISH THIS)
 
+| Model                | Accuracy | Precision | **Recall** | F1 Score | ROC-AUC | Notes |
+|---------------------|----------|-----------|--------|----------|---------|------|
+| Logistic Regression | 0.44     | 0.02      | **0.98**   | 0.04     | 0.823   | High recall, poor precision |
+| Gradient Boosting   | 0.72     | 0.03      | **0.77**   | 0.06     | 0.818   | Balanced performance |
+| LightGBM            | 0.74     | 0.03      | **0.74**   | 0.06     | 0.820   | Best accuracy |
+| RNN                  |          |           |        |          |         | Sequence-based model |
+
+- Due to extreme class imbalance, precision for injury prediction remains low, but ROC-AUC indicates strong separability between injured and non-injured cases.
+
 ## License
 
 This project is for educational purposes. You may reuse or modify this code with proper attribution.
