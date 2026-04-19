@@ -11,6 +11,9 @@ from sklearn.metrics import confusion_matrix, classification_report, roc_auc_sco
 import xgboost as xgb
 import lightgbm as lgb
 from imblearn.combine import SMOTEENN  # Combines SMOTE oversampling + Edited Nearest Neighbors undersampling
+import os
+
+os.environ["LOKY_MAX_CPU_COUNT"] = "8"  # or your CPU core count
 
 def gradient_boosting_pipeline(X, y, model_type="both", threshold=0.05, test_size=0.2, random_state=42):
     """
@@ -76,7 +79,6 @@ def gradient_boosting_pipeline(X, y, model_type="both", threshold=0.05, test_siz
             max_depth=5,            # Limit tree depth to avoid overfitting
             learning_rate=0.05,     # Small step size for gradual learning
             random_state=random_state,
-            use_label_encoder=False, # Avoid warning in newer XGBoost versions
             eval_metric='logloss'   # Binary classification metric
         )
         xgb_model.fit(X_train_res, y_train_res)
@@ -115,11 +117,15 @@ def gradient_boosting_pipeline(X, y, model_type="both", threshold=0.05, test_siz
     if model_type in ("lgb", "both"):
         # LightGBM is optimized for speed and large datasets, handles categorical splits efficiently
         lgb_model = lgb.LGBMClassifier(
-            n_estimators=500,
-            max_depth=5,
+            n_estimators=300,
             learning_rate=0.05,
-            random_state=random_state
+            max_depth=-1,
+            num_leaves=31,
+            min_child_samples=20,   # ↓ reduce this (default ~20–30)
+            min_gain_to_split=0.0,  # allow smaller splits
+            verbose=-1              # 🔥 THIS removes warnings
         )
+        
         lgb_model.fit(X_train_res, y_train_res)
 
         y_probs_lgb = lgb_model.predict_proba(X_test)[:, 1]

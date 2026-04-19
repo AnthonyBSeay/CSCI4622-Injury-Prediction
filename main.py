@@ -35,13 +35,13 @@ results_logistic = train_logistic_model_from_csv(
     verbose=True
 )
 
-plot_logistic_results(results_logistic)
+#plot_logistic_results(results_logistic)
 
 # -----------------------------
 # 3 Gradient Boosting (XGBoost + LightGBM)
 # -----------------------------
-# Load CSV manually for gradient boosting
-#df = pd.read_csv("data/model_ready_data.csv")
+#Load CSV manually for gradient boosting
+# df = pd.read_csv("data/model_ready_data.csv")
 # X = df[feature_cols]
 # y = df["injury"]
 
@@ -70,6 +70,6 @@ plot_logistic_results(results_logistic)
 #     feature_cols=feature_cols,
 #     target_col="injury",
 #     sequence_length=5,
-#     epochs=10
+#     epochs=25
 # )
 

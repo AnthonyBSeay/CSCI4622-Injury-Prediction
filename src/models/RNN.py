@@ -1,5 +1,5 @@
 # =============================
-# RNN.py
+# RNN.py (Improved Threshold Tuning Version)
 # Injury Prediction using LSTM (PyTorch)
 # =============================
 
@@ -10,29 +10,26 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import (
-    classification_report, confusion_matrix, precision_recall_curve, auc
+    classification_report,
+    confusion_matrix,
+    precision_recall_curve,
+    auc
 )
-from imblearn.combine import SMOTEENN  # Handles class imbalance using oversampling + cleaning
+import matplotlib.pyplot as plt
+
 
 # -----------------------------
-# 1️⃣ Sequence Dataset
+# 1️⃣ Dataset
 # -----------------------------
 class InjuryDataset(Dataset):
-    """
-    Custom PyTorch Dataset for sequential injury prediction.
-    Each sample is a sequence of features over 'sequence_length' games,
-    with a corresponding target (injury event in the next game).
-    """
     def __init__(self, X, y):
-        # Convert data to torch tensors with appropriate dtype
         self.X = torch.tensor(X, dtype=torch.float32)
         self.y = torch.tensor(y, dtype=torch.float32)
 
     def __len__(self):
-        return len(self.X)  # Number of sequences
+        return len(self.X)
 
     def __getitem__(self, idx):
-        # Returns a single sequence and its corresponding label
         return self.X[idx], self.y[idx]
 
 
@@ -40,50 +37,43 @@ class InjuryDataset(Dataset):
 # 2️⃣ LSTM Model
 # -----------------------------
 class InjuryLSTM(nn.Module):
-    """
-    Simple stacked LSTM model for sequence-to-one prediction.
-    Takes a sequence of feature vectors and outputs a single logit
-    representing the likelihood of injury in the next game.
-    """
     def __init__(self, input_size, hidden_size=64, num_layers=2):
         super().__init__()
-        # LSTM layer: batch_first=True allows input shape [batch, seq, features]
-        self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
-        # Fully connected layer reduces hidden state to single output
+        self.lstm = nn.LSTM(
+            input_size,
+            hidden_size,
+            num_layers,
+            batch_first=True
+        )
         self.fc = nn.Linear(hidden_size, 1)
 
     def forward(self, x):
-        # Only use the hidden state of the last time step (hn[-1])
         _, (hn, _) = self.lstm(x)
-        out = self.fc(hn[-1])
-        return out  # raw logits (not probabilities yet)
+        return self.fc(hn[-1])
 
 
 # -----------------------------
-# 3️⃣ Create Sequences
+# 3️⃣ Sequence Builder
 # -----------------------------
-def create_sequences(df, feature_cols, target_col, sequence_length=5):
-    """
-    Converts a dataframe into sequences suitable for RNN input.
-    - df: pandas DataFrame containing game-level features
-    - feature_cols: list of columns used as input features
-    - target_col: column used as the prediction target (injury)
-    - sequence_length: number of consecutive games per input sequence
-
-    Returns:
-    - X: array of sequences [num_sequences, seq_len, num_features]
-    - y: array of labels [num_sequences]
-    """
+def create_sequences(df, feature_cols, target_col, sequence_length=5, horizon=5):
     sequences = []
     labels = []
 
-    # Sort by player and date to preserve temporal order
     df = df.sort_values(["PLAYER_ID", "GAME_DATE"])
-    for player_id, group in df.groupby("PLAYER_ID"):
+
+    for _, group in df.groupby("PLAYER_ID"):
         group = group.reset_index(drop=True)
-        for i in range(len(group) - sequence_length):
+
+        for i in range(len(group) - sequence_length - horizon):
+
             seq = group[feature_cols].iloc[i:i+sequence_length].values
-            label = group[target_col].iloc[i+sequence_length]  # Next game injury
+
+            future_injuries = group[target_col].iloc[
+                i+sequence_length : i+sequence_length+horizon
+            ].values
+
+            label = int(np.any(future_injuries == 1))
+
             sequences.append(seq)
             labels.append(label)
 
@@ -91,7 +81,26 @@ def create_sequences(df, feature_cols, target_col, sequence_length=5):
 
 
 # -----------------------------
-# 4️⃣ Training Pipeline
+# 4️⃣ Train/Test Split
+# -----------------------------
+def train_test_split_players(df, test_size=0.2, seed=42):
+    np.random.seed(seed)
+
+    players = df["PLAYER_ID"].unique()
+    np.random.shuffle(players)
+
+    split = int(len(players) * (1 - test_size))
+    train_players = players[:split]
+    test_players = players[split:]
+
+    train_df = df[df["PLAYER_ID"].isin(train_players)].copy()
+    test_df = df[df["PLAYER_ID"].isin(test_players)].copy()
+
+    return train_df, test_df
+
+
+# -----------------------------
+# 5️⃣ Training Pipeline
 # -----------------------------
 def train_rnn_from_csv(
     csv_path,
@@ -99,151 +108,167 @@ def train_rnn_from_csv(
     target_col="injury",
     sequence_length=5,
     batch_size=64,
-    epochs=20,
+    epochs=10,
     lr=0.001,
-    use_smoteenn=True
+    random_state=42
 ):
-    """
-    Full training pipeline for LSTM injury prediction.
-    Handles preprocessing, sequence creation, rare-event resampling, training, and evaluation.
-    """
 
     print("Loading data...")
     df = pd.read_csv(csv_path)
 
-    # -----------------------------
-    # Feature scaling
-    # -----------------------------
+    # Split
+    train_df, test_df = train_test_split_players(df, seed=random_state)
+
+    # Scaling
     scaler = StandardScaler()
-    df[feature_cols] = scaler.fit_transform(df[feature_cols])
-    # Standardization is critical for LSTM training to ensure gradients don't explode/vanish
+    train_df[feature_cols] = scaler.fit_transform(train_df[feature_cols])
+    test_df[feature_cols] = scaler.transform(test_df[feature_cols])
 
-    # -----------------------------
-    # Create sequences
-    # -----------------------------
-    X, y = create_sequences(df, feature_cols, target_col, sequence_length)
-    print(f"Created {len(X)} sequences of length {sequence_length}")
+    # Sequences
+    X_train, y_train = create_sequences(train_df, feature_cols, target_col, sequence_length)
+    X_test, y_test = create_sequences(test_df, feature_cols, target_col, sequence_length)
 
-    # -----------------------------
-    # Train/Test split (80/20)
-    # -----------------------------
-    split = int(0.8 * len(X))
-    X_train, X_test = X[:split], X[split:]
-    y_train, y_test = y[:split], y[split:]
+    print(f"Train sequences: {len(X_train)}")
+    print(f"Test sequences: {len(X_test)}")
 
-    # -----------------------------
-    # Flatten sequences for resampling
-    # -----------------------------
-    X_train_flat = X_train.reshape(X_train.shape[0], -1)
+    # Dataloaders
+    train_loader = DataLoader(InjuryDataset(X_train, y_train), batch_size=batch_size, shuffle=True)
+    test_loader = DataLoader(InjuryDataset(X_test, y_test), batch_size=batch_size)
 
-    # -----------------------------
-    # Handle class imbalance (rare injuries)
-    # -----------------------------
-    if use_smoteenn:
-        # SMOTE + ENN reduces bias from oversampling by cleaning overlapping samples
-        sampler = SMOTEENN(random_state=42)
-        X_train_res, y_train_res = sampler.fit_resample(X_train_flat, y_train)
-    else:
-        # Basic SMOTE only
-        from imblearn.over_sampling import SMOTE
-        sampler = SMOTE(random_state=42)
-        X_train_res, y_train_res = sampler.fit_resample(X_train_flat, y_train)
-
-    # Reshape back to sequence format for LSTM
-    X_train_res = X_train_res.reshape(-1, sequence_length, len(feature_cols))
-    print(f"After resampling, training dataset size: {X_train_res.shape[0]}")
-
-    # -----------------------------
-    # Datasets & DataLoaders
-    # -----------------------------
-    train_dataset = InjuryDataset(X_train_res, y_train_res)
-    test_dataset = InjuryDataset(X_test, y_test)
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size)
-
-    # -----------------------------
-    # Device setup (GPU if available)
-    # -----------------------------
+    # Device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print("Device used for torch:", device)
+    print("Device:", device)
 
     model = InjuryLSTM(input_size=len(feature_cols)).to(device)
 
-    # -----------------------------
-    # Weighted loss for rare-event class
-    # -----------------------------
-    num_pos = np.sum(y_train_res == 1)
-    num_neg = np.sum(y_train_res == 0)
-    pos_weight = torch.tensor([num_neg / num_pos]).to(device)
-    criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
-    # Weighting helps prevent the model from always predicting the majority class
+    # Class imbalance
+    pos = np.sum(y_train == 1)
+    neg = np.sum(y_train == 0)
+    pos_weight = torch.tensor([neg / (pos + 1e-6)]).to(device)
 
+    criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
-    # -----------------------------
-    # Training loop
-    # -----------------------------
+    # Training
     print("Training RNN...")
     for epoch in range(epochs):
         model.train()
         total_loss = 0
+
         for X_batch, y_batch in train_loader:
-            X_batch, y_batch = X_batch.to(device), y_batch.to(device).unsqueeze(1)
+            X_batch = X_batch.to(device)
+            y_batch = y_batch.to(device).unsqueeze(1)
 
             optimizer.zero_grad()
             logits = model(X_batch)
             loss = criterion(logits, y_batch)
+
             loss.backward()
             optimizer.step()
 
             total_loss += loss.item()
 
-        avg_loss = total_loss / len(train_loader)
-        print(f"Epoch {epoch+1}, Loss: {avg_loss:.4f}")
+        print(f"Epoch {epoch+1}/{epochs} - Loss: {total_loss/len(train_loader):.4f}")
 
     # -----------------------------
     # Evaluation
     # -----------------------------
     model.eval()
-    y_logits, y_true = [], []
+    logits_list, y_true = [], []
 
     with torch.no_grad():
         for X_batch, y_batch in test_loader:
             X_batch = X_batch.to(device)
-            logits = model(X_batch).squeeze().cpu()
-            y_logits.extend(logits.numpy())
+
+            logits = model(X_batch).squeeze().cpu().numpy()
+            logits_list.extend(logits)
             y_true.extend(y_batch.numpy())
 
-    y_logits = np.array(y_logits)
+    logits = np.array(logits_list)
     y_true = np.array(y_true)
 
-    # Convert logits to probabilities using sigmoid
-    y_probs = 1 / (1 + np.exp(-y_logits))
+    probs = 1 / (1 + np.exp(-logits))
 
     # -----------------------------
-    # Find threshold that maximizes F1 score
+    # Threshold tuning (NEW)
     # -----------------------------
-    precision, recall, thresholds = precision_recall_curve(y_true, y_probs)
-    f1_scores = 2 * (precision * recall) / (precision + recall + 1e-8)
-    best_idx = f1_scores.argmax()
-    best_threshold = thresholds[best_idx]
+    precision, recall, thresholds = precision_recall_curve(y_true, probs)
+    thresholds = np.append(thresholds, 1.0)
 
-    # Predictions using optimal threshold
-    y_pred = (y_probs >= best_threshold).astype(int)
+    f1 = (2 * precision * recall) / (precision + recall + 1e-8)
 
-    print("\n=== RNN Evaluation ===")
-    print("Confusion Matrix:\n", confusion_matrix(y_true, y_pred))
-    print("\nClassification Report:\n", classification_report(y_true, y_pred, zero_division=0))
+    threshold_results = pd.DataFrame({
+        "threshold": thresholds,
+        "precision": precision,
+        "recall": recall,
+        "f1": f1
+    })
+
+    # F1 optimal
+    f1_idx = threshold_results["f1"].idxmax()
+    f1_threshold = threshold_results.loc[f1_idx, "threshold"]
+
+    # High recall (>= 0.80)
+    recall_target = 0.80
+    valid_recall = threshold_results[threshold_results["recall"] >= recall_target]
+
+    if len(valid_recall) > 0:
+        idx = valid_recall["precision"].idxmax()
+        recall_threshold = threshold_results.loc[idx, "threshold"]
+    else:
+        recall_threshold = f1_threshold
+
+    # Higher precision (>= 0.25)
+    precision_target = 0.25
+    valid_precision = threshold_results[threshold_results["precision"] >= precision_target]
+
+    if len(valid_precision) > 0:
+        idx = valid_precision["recall"].idxmax()
+        precision_threshold = threshold_results.loc[idx, "threshold"]
+    else:
+        precision_threshold = f1_threshold
+
+    # -----------------------------
+    # Evaluation function
+    # -----------------------------
+    def evaluate_threshold(name, threshold):
+        preds = (probs >= threshold).astype(int)
+
+        print(f"\n=== {name} (threshold={threshold:.4f}) ===")
+        print("Confusion Matrix:\n", confusion_matrix(y_true, preds))
+        print("\nClassification Report:\n",
+              classification_report(y_true, preds, zero_division=0))
+
+    evaluate_threshold("F1 Optimal", f1_threshold)
+    evaluate_threshold("High Recall (>=0.80)", recall_threshold)
+    evaluate_threshold("Higher Precision", precision_threshold)
+
+    # -----------------------------
+    # PR-AUC
+    # -----------------------------
     pr_auc = auc(recall, precision)
-    print("PR-AUC:", pr_auc)
-    print("Best Threshold (F1-max):", best_threshold)
+    print("\nPR-AUC:", pr_auc)
 
     # -----------------------------
-    # Return model and evaluation results for further analysis
+    # Plot threshold curves
     # -----------------------------
+    plt.figure()
+    plt.plot(threshold_results["threshold"], threshold_results["precision"], label="Precision")
+    plt.plot(threshold_results["threshold"], threshold_results["recall"], label="Recall")
+    plt.plot(threshold_results["threshold"], threshold_results["f1"], label="F1")
+    plt.xlabel("Threshold")
+    plt.ylabel("Score")
+    plt.title("Threshold Tuning Curve")
+    plt.legend()
+    plt.show()
+
     return {
         "model": model,
-        "y_probs": y_probs,
-        "y_pred": y_pred,
-        "best_threshold": best_threshold
+        "scaler": scaler,
+        "y_true": y_true,
+        "y_probs": probs,
+        "f1_threshold": f1_threshold,
+        "recall_threshold": recall_threshold,
+        "precision_threshold": precision_threshold,
+        "pr_auc": pr_auc
     }

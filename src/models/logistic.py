@@ -161,6 +161,57 @@ def train_logistic_model_from_csv(
         print("\nTop 10 Features Influencing Injury Risk:\n", feature_importance.head(10))
 
     # -----------------------------
+    # 🔟 Additional Evaluation Metrics (IMPORTANT FOR REPORT)
+    # -----------------------------
+
+    tn, fp, fn, tp = cm.ravel()
+
+    # Core derived metrics
+    specificity = tn / (tn + fp)
+    fpr = fp / (fp + tn)
+    fnr = fn / (fn + tp)
+    balanced_accuracy = ( (tp / (tp + fn)) + specificity ) / 2
+
+    # PR-AUC (very important for imbalanced data)
+    pr_auc = auc(recall, precision)
+
+    if verbose:
+        print("\n==============================")
+        print("ADDITIONAL EVALUATION METRICS")
+        print("==============================")
+
+        print(f"Specificity (TNR): {specificity:.4f}")
+        print(f"False Positive Rate (FPR): {fpr:.4f}")
+        print(f"False Negative Rate (FNR): {fnr:.4f}")
+        print(f"Balanced Accuracy: {balanced_accuracy:.4f}")
+        print(f"PR-AUC Score: {pr_auc:.4f}")
+
+    # -----------------------------
+    # Threshold Sensitivity Analysis
+    # -----------------------------
+    thresholds_to_test = np.arange(0.01, 0.51, 0.01)
+
+    best_f1 = 0
+    best_threshold = threshold
+
+    for t in thresholds_to_test:
+        preds = (y_probs >= t).astype(int)
+        report = classification_report(y_test, preds, output_dict=True)
+        f1 = report["1"]["f1-score"]
+
+        if f1 > best_f1:
+            best_f1 = f1
+            best_threshold = t
+
+    if verbose:
+        print("\n==============================")
+        print("THRESHOLD OPTIMIZATION")
+        print("==============================")
+        print(f"Best Threshold (F1-based): {best_threshold:.3f}")
+        print(f"Best F1 Score: {best_f1:.4f}")
+
+
+    # -----------------------------
     # Return model and results for analysis or reporting
     # -----------------------------
     return {
