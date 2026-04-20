@@ -11,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import (
     confusion_matrix, classification_report, roc_auc_score,
-    precision_recall_curve
+    precision_recall_curve, auc
 )
 from imblearn.combine import SMOTEENN  # Handles class imbalance using oversampling + cleaning
 
@@ -224,6 +224,7 @@ def train_logistic_model_from_csv(
         "confusion_matrix": cm,
         "classification_report": cr,
         "roc_auc": roc_auc,
+        "pr_auc": pr_auc,
         "precision_recall_curve": (precision, recall, thresholds),
         "feature_importance": feature_importance
     }

@@ -88,6 +88,9 @@ def gradient_boosting_pipeline(X, y, model_type="both", threshold=0.05, test_siz
         # Predictions & Thresholding
         # -----------------------------
         y_probs_xgb = xgb_model.predict_proba(X_test)[:, 1]
+        precision_xgb, recall_xgb, _ = precision_recall_curve(y_test, y_probs_xgb)
+        pr_auc_xgb = auc(recall_xgb, precision_xgb)
+
         y_pred_xgb = (y_probs_xgb >= threshold).astype(int)
 
         # -----------------------------
@@ -96,6 +99,7 @@ def gradient_boosting_pipeline(X, y, model_type="both", threshold=0.05, test_siz
         print("\n=== XGBoost Evaluation ===")
         print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred_xgb))
         print("\nClassification Report:\n", classification_report(y_test, y_pred_xgb))
+        print("PR-AUC Score:", pr_auc_xgb)
         print("ROC-AUC Score:", roc_auc_score(y_test, y_probs_xgb))
 
         # -----------------------------
@@ -110,6 +114,7 @@ def gradient_boosting_pipeline(X, y, model_type="both", threshold=0.05, test_siz
             'y_pred': y_pred_xgb,
             'feature_importances': feat_imp_xgb,
             'precision_recall': precision_recall_curve(y_test, y_probs_xgb),
+            'pr_auc': pr_auc_xgb,
             'y_test': y_test
         }
 
@@ -131,11 +136,16 @@ def gradient_boosting_pipeline(X, y, model_type="both", threshold=0.05, test_siz
         lgb_model.fit(X_train_res, y_train_res)
 
         y_probs_lgb = lgb_model.predict_proba(X_test)[:, 1]
+
+        precision_lgb, recall_lgb, _ = precision_recall_curve(y_test, y_probs_lgb)
+        pr_auc_lgb = auc(recall_lgb, precision_lgb)
+
         y_pred_lgb = (y_probs_lgb >= threshold).astype(int)
 
         print("\n=== LightGBM Evaluation ===")
         print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred_lgb))
         print("\nClassification Report:\n", classification_report(y_test, y_pred_lgb))
+        print("PR-AUC Score:", pr_auc_lgb)
         print("ROC-AUC Score:", roc_auc_score(y_test, y_probs_lgb))
 
         feat_imp_lgb = pd.Series(lgb_model.feature_importances_, index=X.columns).sort_values(ascending=False)
@@ -147,6 +157,7 @@ def gradient_boosting_pipeline(X, y, model_type="both", threshold=0.05, test_siz
             'y_pred': y_pred_lgb,
             'feature_importances': feat_imp_lgb,
             'precision_recall': precision_recall_curve(y_test, y_probs_lgb),
+            'pr_auc': pr_auc_lgb, 
             'y_test': y_test
         }
 

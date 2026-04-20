@@ -2,24 +2,25 @@
 
 ---
 
-## 📌 Description / Overview
+## 📌 Problem Objective and Overview
 
 This project builds machine learning models to predict lower-body non-contact injuries in NBA players using game logs, player tracking data, and injury history.
 
 The goal is to identify patterns related to player workload, fatigue, and performance that may increase injury risk. Multiple classification models are trained and evaluated to estimate injury probability.
 
+NBA injury prediction is a highly imbalanced, rare-event classification problem where only a small fraction of player-game samples result in injuries. This makes traditional accuracy misleading and requires evaluation using recall, precision-recall AUC, and threshold-tuned decision making
+
+This creates two major challenges:
+
+- Standard accuracy is misleading (a model can appear “accurate” by predicting no injuries)
+- The real objective is **early detection of injury risk**, not overall correctness
+
+As a result, this project prioritizes:
+- Recall (injury detection rate)
+- Precision-Recall AUC (PR-AUC)
+- Threshold-optimized decision making
+
 This project is intended for data science applications in sports analytics and predictive modeling.
-
----
-
-## 📊 Demo (Optional)
-
-*(Optional: insert GIF, screenshot, or notebook visualization here)*
-
-Example outputs include:
-- ROC curves
-- Precision-recall curves
-- Feature importance plots
 
 ---
 
@@ -103,14 +104,14 @@ python main.py
 |-- .gitattributes
 ```
 
-## Result Summary (FINISH THIS)
+## Result Summary
 
-| Model                | Accuracy | Precision | **Recall** | F1 Score | ROC-AUC | Notes |
+| Model                | Accuracy | Precision | **Recall** | F1 Score | PR-AUC | Interpretation |
 |---------------------|----------|-----------|--------|----------|---------|------|
-| Logistic Regression | 0.44     | 0.02      | **0.98**   | 0.04     | 0.823   | High recall, poor precision |
-| Gradient Boosting   | 0.72     | 0.03      | **0.77**   | 0.06     | 0.818   | Balanced performance |
-| LightGBM            | 0.74     | 0.03      | **0.74**   | 0.06     | 0.820   | Best accuracy |
-| RNN                  |          |           |        |          |         | Sequence-based model |
+| Logistic Regression | 0.44     | 0.02      | **0.98**   | 0.04     | 0.105   | Over-predicts injuries (high recall, low utility) |
+| Gradient Boosting(XGBoost)   | 0.72     | 0.03      | **0.77**   | 0.06     | 0.043  | Weak separation under imbalance |
+| LightGBM            | 0.74     | 0.03      | **0.74**   | 0.06     | 0.045  | Best classical ML accuracy |
+| RNN                 | 0.81    | 0.169        |**0.601** | 0.26     | 0.163   | Best overall tradeoff (sequence-aware model) |
 
 - Due to extreme class imbalance, precision for injury prediction remains low, but ROC-AUC indicates strong separability between injured and non-injured cases.
 

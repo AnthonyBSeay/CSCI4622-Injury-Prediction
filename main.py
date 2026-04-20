@@ -9,7 +9,7 @@ import pandas as pd
 # -----------------------------
 # CONFIG (EDIT ONLY THIS)
 # -----------------------------
-RUN_LOGISTIC = True
+RUN_LOGISTIC = False
 RUN_XGB = True
 RUN_LGB = True
 RUN_RNN = False
@@ -85,7 +85,7 @@ if RUN_RNN:
         feature_cols=feature_cols,
         target_col="injury",
         sequence_length=5,
-        epochs=20
+        epochs=25
     )
 
     plot_rnn_results(rnn_results)

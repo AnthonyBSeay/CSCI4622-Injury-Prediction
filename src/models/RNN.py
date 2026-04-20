@@ -1,6 +1,5 @@
 # =============================
-# RNN.py (Improved Threshold Tuning Version)
-# Injury Prediction using LSTM (PyTorch)
+# RNN.py 
 # =============================
 
 import pandas as pd
@@ -9,17 +8,18 @@ import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import auc, classification_report
 from sklearn.metrics import (
-    roc_curve, auc,
     precision_recall_curve,
-    confusion_matrix
+    confusion_matrix,
+    classification_report,
+    roc_curve,
+    auc
 )
 import matplotlib.pyplot as plt
 
 
 # -----------------------------
-# 1️⃣ Dataset
+# Dataset
 # -----------------------------
 class InjuryDataset(Dataset):
     def __init__(self, X, y):
@@ -34,17 +34,12 @@ class InjuryDataset(Dataset):
 
 
 # -----------------------------
-# 2️⃣ LSTM Model
+# LSTM Model
 # -----------------------------
 class InjuryLSTM(nn.Module):
     def __init__(self, input_size, hidden_size=64, num_layers=2):
         super().__init__()
-        self.lstm = nn.LSTM(
-            input_size,
-            hidden_size,
-            num_layers,
-            batch_first=True
-        )
+        self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
         self.fc = nn.Linear(hidden_size, 1)
 
     def forward(self, x):
@@ -53,11 +48,10 @@ class InjuryLSTM(nn.Module):
 
 
 # -----------------------------
-# 3️⃣ Sequence Builder
+# Sequence Builder
 # -----------------------------
 def create_sequences(df, feature_cols, target_col, sequence_length=5, horizon=5):
-    sequences = []
-    labels = []
+    sequences, labels = [], []
 
     df = df.sort_values(["PLAYER_ID", "GAME_DATE"])
 
@@ -65,14 +59,9 @@ def create_sequences(df, feature_cols, target_col, sequence_length=5, horizon=5)
         group = group.reset_index(drop=True)
 
         for i in range(len(group) - sequence_length - horizon):
-
             seq = group[feature_cols].iloc[i:i+sequence_length].values
-
-            future_injuries = group[target_col].iloc[
-                i+sequence_length : i+sequence_length+horizon
-            ].values
-
-            label = int(np.any(future_injuries == 1))
+            future = group[target_col].iloc[i+sequence_length:i+sequence_length+horizon].values
+            label = int(np.any(future == 1))
 
             sequences.append(seq)
             labels.append(label)
@@ -81,7 +70,7 @@ def create_sequences(df, feature_cols, target_col, sequence_length=5, horizon=5)
 
 
 # -----------------------------
-# 4️⃣ Train/Test Split
+# Train/Test Split
 # -----------------------------
 def train_test_split_players(df, test_size=0.2, seed=42):
     np.random.seed(seed)
@@ -93,14 +82,43 @@ def train_test_split_players(df, test_size=0.2, seed=42):
     train_players = players[:split]
     test_players = players[split:]
 
-    train_df = df[df["PLAYER_ID"].isin(train_players)].copy()
-    test_df = df[df["PLAYER_ID"].isin(test_players)].copy()
-
-    return train_df, test_df
+    return (
+        df[df["PLAYER_ID"].isin(train_players)].copy(),
+        df[df["PLAYER_ID"].isin(test_players)].copy()
+    )
 
 
 # -----------------------------
-# 5️⃣ Training Pipeline
+# 🔥 Threshold Optimization
+# -----------------------------
+def find_optimal_threshold(y_true, y_probs, min_recall=0.60):
+    thresholds = np.linspace(0.0, 1.0, 200)
+
+    best_threshold = 0.0
+    best_precision = 0.0
+    best_recall = 0.0
+
+    for t in thresholds:
+        preds = (y_probs >= t).astype(int)
+
+        tp = np.sum((preds == 1) & (y_true == 1))
+        fp = np.sum((preds == 1) & (y_true == 0))
+        fn = np.sum((preds == 0) & (y_true == 1))
+
+        recall = tp / (tp + fn + 1e-8)
+        precision = tp / (tp + fp + 1e-8)
+
+        if recall >= min_recall:
+            if precision > best_precision:
+                best_precision = precision
+                best_threshold = t
+                best_recall = recall
+
+    return best_threshold, best_precision, best_recall
+
+
+# -----------------------------
+# Training Pipeline
 # -----------------------------
 def train_rnn_from_csv(
     csv_path,
@@ -116,32 +134,26 @@ def train_rnn_from_csv(
     print("Loading data...")
     df = pd.read_csv(csv_path)
 
-    # Split
     train_df, test_df = train_test_split_players(df, seed=random_state)
 
-    # Scaling
     scaler = StandardScaler()
     train_df[feature_cols] = scaler.fit_transform(train_df[feature_cols])
     test_df[feature_cols] = scaler.transform(test_df[feature_cols])
 
-    # Sequences
     X_train, y_train = create_sequences(train_df, feature_cols, target_col, sequence_length)
     X_test, y_test = create_sequences(test_df, feature_cols, target_col, sequence_length)
 
     print(f"Train sequences: {len(X_train)}")
     print(f"Test sequences: {len(X_test)}")
 
-    # Dataloaders
     train_loader = DataLoader(InjuryDataset(X_train, y_train), batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(InjuryDataset(X_test, y_test), batch_size=batch_size)
 
-    # Device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("Device:", device)
 
     model = InjuryLSTM(input_size=len(feature_cols)).to(device)
 
-    # Class imbalance
     pos = np.sum(y_train == 1)
     neg = np.sum(y_train == 0)
     pos_weight = torch.tensor([neg / (pos + 1e-6)]).to(device)
@@ -149,7 +161,6 @@ def train_rnn_from_csv(
     criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
-    # Training
     print("Training RNN...")
     for epoch in range(epochs):
         model.train()
@@ -179,8 +190,8 @@ def train_rnn_from_csv(
     with torch.no_grad():
         for X_batch, y_batch in test_loader:
             X_batch = X_batch.to(device)
-
             logits = model(X_batch).squeeze().cpu().numpy()
+
             logits_list.extend(logits)
             y_true.extend(y_batch.numpy())
 
@@ -189,106 +200,50 @@ def train_rnn_from_csv(
 
     probs = 1 / (1 + np.exp(-logits))
 
-    # -----------------------------
-    # Threshold tuning (NEW)
-    # -----------------------------
-    precision, recall, thresholds = precision_recall_curve(y_true, probs)
-    thresholds = np.append(thresholds, 1.0)
+    # 🔥 OPTIMAL THRESHOLD
+    best_threshold, best_precision, best_recall = find_optimal_threshold(y_true, probs)
 
-    f1 = (2 * precision * recall) / (precision + recall + 1e-8)
+    preds = (probs >= best_threshold).astype(int)
 
-    threshold_results = pd.DataFrame({
-        "threshold": thresholds,
-        "precision": precision,
-        "recall": recall,
-        "f1": f1
-    })
+    print(f"\n=== FINAL MODEL (Optimized Threshold) ===")
+    print(f"Threshold: {best_threshold:.4f}")
+    print(f"Precision: {best_precision:.3f}")
+    print(f"Recall: {best_recall:.3f}")
 
-    # F1 optimal
-    f1_idx = threshold_results["f1"].idxmax()
-    f1_threshold = threshold_results.loc[f1_idx, "threshold"]
+    cm = confusion_matrix(y_true, preds)
+    print("Confusion Matrix:\n", cm)
 
-    # High recall (>= 0.80)
-    recall_target = 0.80
-    valid_recall = threshold_results[threshold_results["recall"] >= recall_target]
+    print("\nClassification Report:\n",
+          classification_report(y_true, preds, zero_division=0))
 
-    if len(valid_recall) > 0:
-        idx = valid_recall["precision"].idxmax()
-        recall_threshold = threshold_results.loc[idx, "threshold"]
-    else:
-        recall_threshold = f1_threshold
+    fpr, tpr, _ = roc_curve(y_true, probs)
+    roc_auc = auc(fpr, tpr)
 
-    # Higher precision (>= 0.25)
-    precision_target = 0.25
-    valid_precision = threshold_results[threshold_results["precision"] >= precision_target]
+    precision_curve, recall_curve, _ = precision_recall_curve(y_true, probs)
+    pr_auc = auc(recall_curve, precision_curve)
 
-    if len(valid_precision) > 0:
-        idx = valid_precision["recall"].idxmax()
-        precision_threshold = threshold_results.loc[idx, "threshold"]
-    else:
-        precision_threshold = f1_threshold
-
-    # -----------------------------
-    # Evaluation function
-    # -----------------------------
-    def evaluate_threshold(name, threshold):
-        preds = (probs >= threshold).astype(int)
-
-        print(f"\n=== {name} (threshold={threshold:.4f}) ===")
-        print("Confusion Matrix:\n", confusion_matrix(y_true, preds))
-        print("\nClassification Report:\n",
-              classification_report(y_true, preds, zero_division=0))
-
-    evaluate_threshold("F1 Optimal", f1_threshold)
-    evaluate_threshold("High Recall (>=0.80)", recall_threshold)
-    evaluate_threshold("Higher Precision", precision_threshold)
-
-    # -----------------------------
-    # PR-AUC
-    # -----------------------------
-    pr_auc = auc(recall, precision)
-    print("\nPR-AUC:", pr_auc)
-
-    # -----------------------------
-    # Plot threshold curves
-    # -----------------------------
-    plt.figure()
-    plt.plot(threshold_results["threshold"], threshold_results["precision"], label="Precision")
-    plt.plot(threshold_results["threshold"], threshold_results["recall"], label="Recall")
-    plt.plot(threshold_results["threshold"], threshold_results["f1"], label="F1")
-    plt.xlabel("Threshold")
-    plt.ylabel("Score")
-    plt.title("Threshold Tuning Curve")
-    plt.legend()
-    plt.show()
+    print(f"\nROC-AUC: {roc_auc:.4f}")
+    print(f"PR-AUC: {pr_auc:.4f}")
 
     return {
         "model": model,
-        "scaler": scaler,
+        "threshold": best_threshold,
         "y_true": y_true,
         "y_probs": probs,
-        "f1_threshold": f1_threshold,
-        "recall_threshold": recall_threshold,
-        "precision_threshold": precision_threshold,
+        "roc_auc": roc_auc,
         "pr_auc": pr_auc
     }
 
-# =============================
-# 6️⃣ RNN Evaluation Plots (MATCHES OTHER MODELS)
-# =============================
-
 def plot_rnn_results(results, model_name="RNN"):
     """
-    Standardized evaluation plots:
+    Plots:
     - ROC Curve
     - Precision-Recall Curve
-    - Confusion Matrix (F1-optimal threshold)
-    - Threshold tradeoff curve
+    - Threshold Tradeoff Curve (Precision, Recall vs Threshold)
     """
 
     y_true = results["y_true"]
     y_probs = results["y_probs"]
-    f1_threshold = results["f1_threshold"]
 
     # -----------------------------
     # ROC Curve
@@ -320,30 +275,10 @@ def plot_rnn_results(results, model_name="RNN"):
     plt.show()
 
     # -----------------------------
-    # Confusion Matrix (F1 optimal threshold)
+    # Threshold Tradeoff Curve
     # -----------------------------
-    preds = (y_probs >= f1_threshold).astype(int)
-    cm = confusion_matrix(y_true, preds)
+    thresholds = np.linspace(0.0, 1.0, 100)
 
-    plt.figure()
-    plt.imshow(cm)
-    plt.title(f"{model_name} - Confusion Matrix (F1 Threshold)")
-    plt.xlabel("Predicted")
-    plt.ylabel("Actual")
-
-    for i in range(cm.shape[0]):
-        for j in range(cm.shape[1]):
-            plt.text(j, i, cm[i, j], ha="center", va="center")
-
-    plt.tight_layout()
-    plt.show()
-
-    # -----------------------------
-    # Threshold tradeoff curve (clean version)
-    # -----------------------------
-    thresholds = np.linspace(0.01, 0.99, 100)
-
-    f1_scores = []
     precision_scores = []
     recall_scores = []
 
@@ -356,18 +291,16 @@ def plot_rnn_results(results, model_name="RNN"):
 
         prec = tp / (tp + fp + 1e-8)
         rec = tp / (tp + fn + 1e-8)
-        f1 = 2 * prec * rec / (prec + rec + 1e-8)
 
         precision_scores.append(prec)
         recall_scores.append(rec)
-        f1_scores.append(f1)
 
     plt.figure()
     plt.plot(thresholds, precision_scores, label="Precision")
     plt.plot(thresholds, recall_scores, label="Recall")
-    plt.plot(thresholds, f1_scores, label="F1")
     plt.title(f"{model_name} - Threshold Tradeoff")
     plt.xlabel("Threshold")
     plt.ylabel("Score")
     plt.legend()
     plt.show()
+
