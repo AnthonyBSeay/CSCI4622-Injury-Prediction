@@ -28,7 +28,7 @@ This project is intended for data science applications in sports analytics and p
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/nba-injury-prediction.git
+git clone https://github.com/AnthonyBSeay/CSCI4622-Injury-Prediction
 cd nba-injury-prediction
 ```
 
