@@ -28,8 +28,8 @@ This project is intended for data science applications in sports analytics and p
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/your-username/nba-injury-prediction.git
-cd nba-injury-prediction
+git clone https://github.com/AnthonyBSeay/CSCI4622-Injury-Prediction
+cd CSCI4622-Injury-Prediction
 ```
 
 ### 2. Create Virtual Environment (Python 3.10)
@@ -54,7 +54,7 @@ pip install -r requirements.txt
 
 ## 🚀 Usage
 
-`main.py` contains 4 statements too control what models are trained and evaluated at run time, and multiple statements too controls what graps are outputed at runtime. Only edit these CONFIG variables before running the full pipeline
+`main.py` contains 4 statements to control what models are trained and evaluated at run time, and multiple statements to control what graphs are displayed at runtime. Only edit these CONFIG variables before running the full pipeline
 
 ``` python
 # -----------------------------
@@ -74,7 +74,7 @@ PLOT_RNN = False  # display RNN metric graphs
 PLOT_ALL = True     # display comparison metric graphs for all models (requires >1 models)
 ```
 
-Too run the full pipeline run the following command in a virtual environment after installing the required dependencies.
+Too run the full pipeline, run the following command in a virtual environment after installing the required dependencies.
 ```bash
 python main.py
 ```
