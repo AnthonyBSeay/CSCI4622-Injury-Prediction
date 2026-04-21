@@ -29,7 +29,7 @@ This project is intended for data science applications in sports analytics and p
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/AnthonyBSeay/CSCI4622-Injury-Prediction
-cd nba-injury-prediction
+cd CSCI4622-Injury-Prediction
 ```
 
 ### 2. Create Virtual Environment (Python 3.10)
