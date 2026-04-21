@@ -32,28 +32,54 @@ git clone https://github.com/your-username/nba-injury-prediction.git
 cd nba-injury-prediction
 ```
 
-### 2. Install Dependencies
+### 2. Create Virtual Environment (Python 3.10)
+``` bash
+python3.10 -m venv test_env
+```
+
+### 3. Activate Environment
+Windows (Powershell):
+``` bash
+test_env\Scripts\activate
+```
+Mac/Linux:
+``` bash
+source test_env/bin/activate
+```
+
+### 4. Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
 ## 🚀 Usage
-Run full pipeline
-```bash
-python main.py
-```
+
+`main.py` contains 4 statements too control what models are trained and evaluated at run time, and multiple statements too controls what graps are outputed at runtime. Only edit these CONFIG variables before running the full pipeline
 
 ``` python
 # -----------------------------
 # CONFIG (EDIT ONLY THIS)
 # -----------------------------
-RUN_LOGISTIC = False
-RUN_XGB = True
-RUN_LGB = True
-RUN_RNN = False
+RUN_LOGISTIC = True   # train and evaluate logistic model
+PLOT_LOGISTIC = False  # display individual logistic metric graphs
+
+RUN_XGB = True                  # train and evaluate XGB modelx
+RUN_LGB = True                  # train and evaluate LGB model
+PLOT_GRADIENTBOOSTING = False    # display XGB and LGB metric graphs
+
+RUN_RNN = True   # train and evaluate RNN model
+epochs = 25     # number of epochs for RNN training
+PLOT_RNN = False  # display RNN metric graphs
+
+PLOT_ALL = True     # display comparison metric graphs for all models (requires >1 models)
 ```
 
-`main.py` contains 4 statements too control what models are trained and evaluated at run time. 
+Too run the full pipeline run the following command in a virtual environment after installing the required dependencies.
+```bash
+python main.py
+```
+
+ 
 
 ## ✨ Features
 - Injury prediction using classification models
@@ -74,48 +100,6 @@ RUN_RNN = False
 
 ## 📁 Directory Structure
 
-```bash
-.
-|-- main.py                  # Full pipeline execution
-|-- test.py                  # Testing / validation script
-|-- requirements.txt         # Dependencies
-|-- README.md                # Project documentation
-
-|-- data/                    # Raw and processed datasets
-|   |-- gamelogs.csv
-|   |-- gamelog_with_injuries.csv
-|   |-- injury_with_games.csv
-|   |-- merged_engineered_features.csv
-|   |-- merged_tracking_injury_features.csv
-|   |-- model_ready_data.csv
-|   |-- NBA_Injury_Stats.csv
-|   |-- tracking_partial.csv
-
-|-- notebooks/               # EDA and experimentation
-|   |-- analysis.ipynb
-|   |-- wrangle.ipynb
-|   |-- RNN.ipynb
-
-|-- src/                     # Source code
-|   |-- data/
-|   |   |-- wrangle.py
-|   |
-|   |-- models/
-|       |-- logistic.py
-|       |-- gradient_boosting.py
-|       |-- RNN.py
-
-|-- results/                 # Outputs and evaluation
-|   |-- metrics.ipynb
-|   |-- graphs/
-|       |-- Logistic_Precision_Recall.png
-|       |-- Logistic_ROC.png
-
-|-- .vscode/                # Editor configuration
-|-- .gitignore
-|-- .gitattributes
-```
-
 ``` bash
 |-- main.py             # Full pipeline execution
 |-- README.md           # Project documentation
@@ -129,8 +113,8 @@ RUN_RNN = False
   |-- metrics.ipynb
   |-- graphs
 |-- src           # Source code
-  |-- util.py     
-  |-- models            # Final Mmdulized models
+  |-- util.py             
+  |-- models            # Final Modulized models
     |-- gradient_boosting.py  
     |-- logistic.py
     |-- RNN.py

@@ -18,7 +18,7 @@ RUN_LGB = True                  # train and evaluate LGB model
 PLOT_GRADIENTBOOSTING = False    # display XGB and LGB metric graphs
 
 RUN_RNN = True   # train and evaluate RNN model
-epochs = 25      # number of epochs for RNN training
+epochs = 25     # number of epochs for RNN training
 PLOT_RNN = False  # display RNN metric graphs
 
 PLOT_ALL = True     # display comparison metric graphs for all models (requires >1 models)
