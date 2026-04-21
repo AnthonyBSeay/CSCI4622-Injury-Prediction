@@ -104,6 +104,7 @@ python main.py
 |-- main.py             # Full pipeline execution
 |-- README.md           # Project documentation
 |-- requirements.txt    # Dependencies
+|-- NBA_Lower_Body_Injury_Prediction_Report.pdf   # Final project report deliverable
 |-- notebooks           # EDA and experimentation
   |-- analysis.ipynb
   |-- RNN.ipynb
