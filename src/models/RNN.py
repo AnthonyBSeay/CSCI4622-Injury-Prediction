@@ -91,8 +91,8 @@ def train_test_split_players(df, test_size=0.2, seed=42):
 # -----------------------------
 # 🔥 Threshold Optimization
 # -----------------------------
-def find_optimal_threshold(y_true, y_probs, min_recall=0.60):
-    thresholds = np.linspace(0.0, 1.0, 200)
+def find_optimal_threshold(y_true, y_probs, min_recall=0.6):
+    thresholds = np.linspace(0.005, .995, 200)
 
     best_threshold = 0.0
     best_precision = 0.0

@@ -43,6 +43,18 @@ Run full pipeline
 python main.py
 ```
 
+``` python
+# -----------------------------
+# CONFIG (EDIT ONLY THIS)
+# -----------------------------
+RUN_LOGISTIC = False
+RUN_XGB = True
+RUN_LGB = True
+RUN_RNN = False
+```
+
+`main.py` contains 4 statements too control what models are trained and evaluated at run time. 
+
 ## ✨ Features
 - Injury prediction using classification models
 - Feature engineering from player workload and tracking data
@@ -104,16 +116,48 @@ python main.py
 |-- .gitattributes
 ```
 
+``` bash
+|-- main.py             # Full pipeline execution
+|-- README.md           # Project documentation
+|-- requirements.txt    # Dependencies
+|-- notebooks           # EDA and experimentation
+  |-- analysis.ipynb
+  |-- RNN.ipynb
+  |-- wrangle.ipynb
+|-- data                # Raw and processed datasets
+|-- results             # Outputs and evaluation
+  |-- metrics.ipynb
+  |-- graphs
+|-- src           # Source code
+  |-- util.py     
+  |-- models            # Final Mmdulized models
+    |-- gradient_boosting.py  
+    |-- logistic.py
+    |-- RNN.py
+    |-- __pycache__
+|-- .git
+|-- .gitattributes
+|-- .gitignore
+|-- .vscode             # Editor configuration
+```
+
 ## Result Summary
 
-| Model                | Accuracy | Precision | **Recall** | F1 Score | PR-AUC | Interpretation |
-|---------------------|----------|-----------|--------|----------|---------|------|
-| Logistic Regression | 0.44     | 0.02      | **0.98**   | 0.04     | 0.105   | Over-predicts injuries (high recall, low utility) |
-| Gradient Boosting(XGBoost)   | 0.72     | 0.03      | **0.77**   | 0.06     | 0.043  | Weak separation under imbalance |
-| LightGBM            | 0.74     | 0.03      | **0.74**   | 0.06     | 0.045  | Best classical ML accuracy |
-| RNN                 | 0.81    | 0.169        |**0.601** | 0.26     | 0.163   | Best overall tradeoff (sequence-aware model) |
+| Model                       | Accuracy | Precision | **Recall** | F1 Score | **PR-AUC** | Interpretation                                                                                    |
+| --------------------------- | -------- | --------- | ---------- | -------- | ------ | ------------------------------------------------------------------------------------------------- |
+| Logistic Regression         | 0.44     | 0.02      | **0.98**   | 0.04     | **0.105**  | Extreme over-prediction; captures nearly all injuries but unusable due to massive false positives |
+| Gradient Boosting (XGBoost) | 0.72     | 0.03      | **0.77**   | 0.06     | **0.043**  | Better balance than logistic but still poor precision; struggles with class imbalance             |
+| LightGBM                    | 0.74     | 0.03      | **0.74**   | 0.06     | **0.045**  | Slightly more stable than XGBoost; best traditional ML model but still weak signal                |
+| RNN (LSTM)                  | 0.82     | 0.18      | **0.62**   | 0.28     | **0.198**  | Strongest overall model; captures temporal patterns and significantly improves precision          |
 
-- Due to extreme class imbalance, precision for injury prediction remains low, but ROC-AUC indicates strong separability between injured and non-injured cases.
+
+- Injury prediction is fundamentally a **rare-event learning problem**
+- Traditional ML models struggle with precision-recall tradeoffs
+- Logistic regression achieves high recall but produces many false positives
+- Gradient boosting models improve accuracy but fail to capture temporal dynamics
+- The LSTM model significantly improves predictive performance by modeling player fatigue over time
+
+---
 
 ## License
 
