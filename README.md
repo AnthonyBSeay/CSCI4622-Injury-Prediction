@@ -50,7 +50,7 @@ cd CSCI4622-Injury-Prediction
 
 ### 2. Create Virtual Environment (Python 3.10)
 ``` bash
-python3.10 -m venv test_env
+py -3.10 -m venv test_env
 ```
 
 ### 3. Activate Environment
@@ -84,7 +84,7 @@ RUN_LGB = True                  # train and evaluate LGB model
 PLOT_GRADIENTBOOSTING = False    # display XGB and LGB metric graphs
 
 RUN_RNN = True   # train and evaluate RNN model
-epochs = 25     # number of epochs for RNN training
+epochs = 5     # number of epochs for RNN training (Report metrics were trained with 25 epochs)
 PLOT_RNN = False  # display RNN metric graphs
 
 PLOT_ALL = True     # display comparison metric graphs for all models (requires >1 models)
@@ -112,7 +112,7 @@ python main.py
 - NumPy
 - Scikit-learn
 - XGBoost / Gradient Boosting
-- TensorFlow / PyTorch (RNN modeling)
+- PyTorch (RNN modeling)
 - Matplotlib / Seaborn
 - Jupyter Notebooks
 
