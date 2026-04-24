@@ -24,6 +24,22 @@ This project is intended for data science applications in sports analytics and p
 
 ---
 
+📊 Data
+
+The dataset combines:
+
+NBA player tracking data (via NBA API)
+Historical injury data from Kaggle
+https://www.kaggle.com/datasets/loganlauton/nba-injury-stats-1951-2023
+⚠️ Important
+
+A processed, model-ready dataset is included in:
+
+data/processed/
+No additional preprocessing is required to run the pipeline
+
+---
+
 ## ⚙️ Installation
 
 ### 1. Clone the repository
@@ -79,7 +95,9 @@ Too run the full pipeline, run the following command in a virtual environment af
 python main.py
 ```
 
- 
+### Runtime
+Logistic / XGBoost / LightGBM: ~1–2 minutes
+RNN (25 epochs): ~5–10 minutes (CPU dependent)
 
 ## ✨ Features
 - Injury prediction using classification models
@@ -109,7 +127,9 @@ python main.py
   |-- analysis.ipynb
   |-- RNN.ipynb
   |-- wrangle.ipynb
-|-- data                # Raw and processed datasets
+|-- data               
+  |-- processed         # Processed datasets
+  |-- raw               # Raw datasets
 |-- results             # Outputs and evaluation
   |-- metrics.ipynb
   |-- graphs
@@ -141,6 +161,10 @@ python main.py
 - Logistic regression achieves high recall but produces many false positives
 - Gradient boosting models improve accuracy but fail to capture temporal dynamics
 - The LSTM model significantly improves predictive performance by modeling player fatigue over time
+
+A detailed technical report is included:
+
+`NBA_Lower_Body_Injury_Prediction_Report.pdf`
 
 ---
 

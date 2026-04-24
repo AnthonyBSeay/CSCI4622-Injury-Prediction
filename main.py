@@ -18,7 +18,7 @@ RUN_LGB = True                  # train and evaluate LGB model
 PLOT_GRADIENTBOOSTING = False    # display XGB and LGB metric graphs
 
 RUN_RNN = True   # train and evaluate RNN model
-epochs = 25     # number of epochs for RNN training
+epochs = 25    # number of epochs for RNN training
 PLOT_RNN = False  # display RNN metric graphs
 
 PLOT_ALL = True     # display comparison metric graphs for all models (requires >1 models)
@@ -49,7 +49,7 @@ if RUN_LOGISTIC:
     print("\n================ LOGISTIC REGRESSION ================\n")
 
     results_logistic = train_logistic_model_from_csv(
-        csv_path="data/model_ready_data.csv",
+        csv_path="data/processed/model_ready_data.csv",
         target_col="injury",
         feature_cols=feature_cols,
         threshold=0.05,
@@ -67,7 +67,7 @@ if PLOT_LOGISTIC:
 if RUN_XGB or RUN_LGB:
     print("\n================ GRADIENT BOOSTING ================\n")
 
-    df = pd.read_csv("data/model_ready_data.csv")
+    df = pd.read_csv("data/processed/model_ready_data.csv")
     X = df[feature_cols]
     y = df["injury"]
 
@@ -94,7 +94,7 @@ if RUN_RNN:
     print("\n================ RNN MODEL ================\n")
 
     rnn_results = train_rnn_from_csv(
-        csv_path="data/model_ready_data.csv",
+        csv_path="data/processed/model_ready_data.csv",
         feature_cols=feature_cols,
         target_col="injury",
         sequence_length=5,
