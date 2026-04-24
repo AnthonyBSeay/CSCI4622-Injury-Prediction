@@ -162,10 +162,6 @@ RNN (25 epochs): ~5–10 minutes (CPU dependent)
 - Gradient boosting models improve accuracy but fail to capture temporal dynamics
 - The LSTM model significantly improves predictive performance by modeling player fatigue over time
 
-A detailed technical report is included:
-
-`NBA_Lower_Body_Injury_Prediction_Report.pdf`
-
 ---
 
 ## License
