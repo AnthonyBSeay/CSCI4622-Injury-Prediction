@@ -142,6 +142,8 @@ python main.py
 - Gradient boosting models improve accuracy but fail to capture temporal dynamics
 - The LSTM model significantly improves predictive performance by modeling player fatigue over time
 
+- A more detailed report can be found in the `NBA_Lower_Body_Injury_Prediction_Report.pdf` file in the directory. 
+
 ---
 
 ## License
