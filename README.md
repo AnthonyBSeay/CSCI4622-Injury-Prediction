@@ -35,7 +35,7 @@ https://www.kaggle.com/datasets/loganlauton/nba-injury-stats-1951-2023
 
 A processed, model-ready dataset is included in:
 
-data/processed/
+`data/processed/`
 No additional preprocessing is required to run the pipeline
 
 ---
@@ -96,8 +96,8 @@ python main.py
 ```
 
 ### Runtime
-Logistic / XGBoost / LightGBM: ~1–2 minutes
-RNN (25 epochs): ~5–10 minutes (CPU dependent)
+- Logistic / XGBoost / LightGBM: ~1–2 minutes
+- RNN (25 epochs): ~5–10 minutes (CPU dependent)
 
 ## ✨ Features
 - Injury prediction using classification models
@@ -161,6 +161,10 @@ RNN (25 epochs): ~5–10 minutes (CPU dependent)
 - Logistic regression achieves high recall but produces many false positives
 - Gradient boosting models improve accuracy but fail to capture temporal dynamics
 - The LSTM model significantly improves predictive performance by modeling player fatigue over time
+
+A detailed technical report is included:
+
+`NBA_Lower_Body_Injury_Prediction_Report.pdf`
 
 ---
 
