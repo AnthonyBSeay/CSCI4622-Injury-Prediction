@@ -1,0 +1,63 @@
+{
+  "schema_version": 2,
+  "prediction_contract": "After completed game; lower-body IL placement report on a later calendar date within horizon",
+  "horizon_days": 7,
+  "outcome_limitations": [
+    "Report date is not injury onset",
+    "Non-contact mechanism is not established",
+    "Repeated placements are not independent injury episodes"
+  ],
+  "source_observed_start": "1951-12-25",
+  "source_observed_end": "2023-04-16",
+  "source_rows": 37667,
+  "study_report_rows": 1721,
+  "target_report_rows": 567,
+  "target_report_player_days": 565,
+  "unresolved_target_reports": 2,
+  "target_reports_outside_game_cohort": 155,
+  "unresolved_target_names": [
+    "left knee injury (DTD)",
+    "strained left quadriceps (DTD)"
+  ],
+  "game_rows": 25887,
+  "players": 168,
+  "exact_duplicate_game_rows_removed": 0,
+  "label_status_counts": {
+    "unknown_coverage": 25887
+  },
+  "verified_coverage_windows": [],
+  "full_cohort_verified": false,
+  "training_ready": false,
+  "blockers_and_warnings": [
+    "No verified full-cohort collection manifest supplied",
+    "No independently verified injury-report coverage windows; event date extrema are not proof of completeness",
+    "No fully observed prediction horizons available",
+    "Unresolved target-report identities: affected negative horizons remain unknown"
+  ],
+  "inputs": {
+    "injuries": {
+      "path": "data/raw/NBA_Injury_Stats.csv",
+      "sha256": "c966970b675a1014964111760b8f58de3e5387b4ca998d67a43b2cbc0e0f5a8f"
+    },
+    "games": {
+      "path": "data/raw/gamelogs.csv",
+      "sha256": "0d33dbde69644f9a6ebe5bf90fbf01da7cc2406b4ce084d1af7c2f524db111bb"
+    },
+    "players": {
+      "path": "data/reference/nba_players.csv",
+      "sha256": "44d75dd214286b3f535a87d0d6bb8a27bc283af8242b3b9b23ebc6db1031c63f"
+    },
+    "tracking": {
+      "path": "data/raw/tracking_partial.csv",
+      "sha256": "4800eec195646191fc2a21739a149a98a09cd47a3c88fe7976e7758bc359a15c"
+    },
+    "aliases": {
+      "path": "data/reference/player_aliases.csv",
+      "sha256": "e00f0780d5805fd2403f9553ce36714c7e477f2438c4c70816142f6abffa2e60"
+    },
+    "coverage": {
+      "path": "config/injury_coverage.json",
+      "sha256": "ad965c4ea1a91d11268f3409da455a6e1635a7bce5b1542ce04ebf25a7f95613"
+    }
+  }
+}

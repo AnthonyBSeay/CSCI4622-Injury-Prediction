@@ -1,5 +1,18 @@
 # main.py
 
+import argparse
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Reproduce legacy course-project models (labels are not validated).")
+    parser.add_argument("--allow-legacy-data", action="store_true", help="Explicitly reproduce the historical experiment despite known data defects")
+    args = parser.parse_args()
+    if not args.allow_legacy_data:
+        parser.error(
+            "The legacy dataset has incomplete injury coverage and a selected-player cohort. "
+            "Run python -m scripts.repair_data and read docs/DATA_REPAIR.md first. "
+            "Use --allow-legacy-data only to reproduce the old experiment."
+        )
+
 from src.models.logistic import train_logistic_model_from_csv, plot_logistic_results
 from src.models.gradient_boosting import gradient_boosting_pipeline, plot_gradient_boosting_results
 from src.models.RNN import train_rnn_from_csv, plot_rnn_results

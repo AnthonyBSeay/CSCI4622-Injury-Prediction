@@ -179,3 +179,9 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Reproducible local data-repair outputs and source-response caches
+work/
+data/processed/v2/
+data/raw/full_cohort/
+
