@@ -53,7 +53,7 @@
     },
     "aliases": {
       "path": "data/reference/player_aliases.csv",
-      "sha256": "e00f0780d5805fd2403f9553ce36714c7e477f2438c4c70816142f6abffa2e60"
+      "sha256": "f036f40489847d33bab3cd29473eec650cf5232fcbcd1d5dc2320ca3fc828757"
     },
     "coverage": {
       "path": "config/injury_coverage.json",

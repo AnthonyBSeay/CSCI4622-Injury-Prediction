@@ -1,0 +1,43 @@
+{
+  "source": "Vaughn Hajra's historical NBA injury report archive",
+  "source_page": "https://statsurge.substack.com/p/downloadable-nba-injury-datasets",
+  "source_bytes_verified": true,
+  "source_rows": 10692,
+  "official_game_rows": 25894,
+  "official_players": 539,
+  "official_games": 1230,
+  "official_team_games": 2460,
+  "team_games_with_status_rows": 2325,
+  "team_games_without_status_rows": 135,
+  "schedule_unmatched_rows": 0,
+  "identity_unmatched_rows": 0,
+  "out_status_appearance_conflicts": 45,
+  "next_game_outcome_counts": {
+    "observed_appearance": 21784,
+    "absence_reason_unknown": 2699,
+    "no_next_game_within_horizon": 630,
+    "documented_other_absence": 395,
+    "documented_lower_body_absence": 376,
+    "out_status_conflicts_with_appearance": 8,
+    "team_change_before_target": 2
+  },
+  "positive_next_game_outcomes": 376,
+  "negative_next_game_outcomes": 22179,
+  "unknown_next_game_outcomes": 3339,
+  "seven_day_IL_target_training_ready": false,
+  "limitations": [
+    "DATE is the scheduled game date, not report publication time or injury onset",
+    "A team-game with no archive rows is unknown, not a confirmed healthy team",
+    "Out statuses contradicted by official appearances are quarantined",
+    "Exploratory next-game absence labels are a different target from seven-day IL placements",
+    "Outcome missingness may be informative; no full-league calibration or unbiased evaluation claim is supported"
+  ],
+  "inputs": {
+    "data/raw/injury_reports_2022_23.csv": "d881c8d04c527db5da758dbe4e8894f928e0d7f429771e27b466cf1f03d24090",
+    "data/raw/injury_reports_2022_23.metadata.json": "10fd156a040e88e905e60418c712ab753b4a6cff18f82dd0be3d4db6831787d0",
+    "data/raw/cohort_2022_23/gamelogs.csv": "59519e940bb647c8d604ce0b067eb5e958dec98016a0ada75a85f306eb13b0b2",
+    "data/raw/cohort_2022_23/team_games.csv": "fb9a290774449436ce18c08ed6b3332608d78f08d98dc6164ee1d33762476099",
+    "data/reference/nba_players.csv": "44d75dd214286b3f535a87d0d6bb8a27bc283af8242b3b9b23ebc6db1031c63f",
+    "data/reference/player_aliases.csv": "f036f40489847d33bab3cd29473eec650cf5232fcbcd1d5dc2320ca3fc828757"
+  }
+}

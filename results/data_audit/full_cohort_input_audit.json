@@ -1,0 +1,62 @@
+{
+  "schema_version": 2,
+  "prediction_contract": "After completed game; lower-body IL placement report on a later calendar date within horizon",
+  "horizon_days": 7,
+  "outcome_limitations": [
+    "Report date is not injury onset",
+    "Non-contact mechanism is not established",
+    "Repeated placements are not independent injury episodes"
+  ],
+  "source_observed_start": "1951-12-25",
+  "source_observed_end": "2023-04-16",
+  "source_rows": 37667,
+  "study_report_rows": 1721,
+  "target_report_rows": 567,
+  "target_report_player_days": 565,
+  "unresolved_target_reports": 2,
+  "target_reports_outside_game_cohort": 0,
+  "unresolved_target_names": [
+    "left knee injury (DTD)",
+    "strained left quadriceps (DTD)"
+  ],
+  "game_rows": 25894,
+  "players": 539,
+  "exact_duplicate_game_rows_removed": 0,
+  "label_status_counts": {
+    "unknown_coverage": 25894
+  },
+  "verified_coverage_windows": [],
+  "full_cohort_verified": true,
+  "training_ready": false,
+  "blockers_and_warnings": [
+    "No independently verified injury-report coverage windows; event date extrema are not proof of completeness",
+    "No fully observed prediction horizons available",
+    "Unresolved target-report identities: affected negative horizons remain unknown"
+  ],
+  "inputs": {
+    "injuries": {
+      "path": "data/raw/NBA_Injury_Stats.csv",
+      "sha256": "c966970b675a1014964111760b8f58de3e5387b4ca998d67a43b2cbc0e0f5a8f"
+    },
+    "games": {
+      "path": "data/raw/cohort_2022_23/gamelogs.csv",
+      "sha256": "59519e940bb647c8d604ce0b067eb5e958dec98016a0ada75a85f306eb13b0b2"
+    },
+    "players": {
+      "path": "data/reference/nba_players.csv",
+      "sha256": "44d75dd214286b3f535a87d0d6bb8a27bc283af8242b3b9b23ebc6db1031c63f"
+    },
+    "aliases": {
+      "path": "data/reference/player_aliases.csv",
+      "sha256": "f036f40489847d33bab3cd29473eec650cf5232fcbcd1d5dc2320ca3fc828757"
+    },
+    "coverage": {
+      "path": "config/injury_coverage.json",
+      "sha256": "ad965c4ea1a91d11268f3409da455a6e1635a7bce5b1542ce04ebf25a7f95613"
+    },
+    "cohort_manifest": {
+      "path": "data/raw/cohort_2022_23/cohort_manifest.json",
+      "sha256": "f37a5a619b5636bdfb5e2304972097be2f87454207771d3a19e7a327ddc4babe"
+    }
+  }
+}

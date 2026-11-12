@@ -184,4 +184,7 @@ cython_debug/
 work/
 data/processed/v2/
 data/raw/full_cohort/
+data/raw/cohort_2022_23/responses/
+data/processed/full_cohort_v2/
+data/processed/archive_audit/
 

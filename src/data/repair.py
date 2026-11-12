@@ -18,12 +18,12 @@ BODY_PATTERNS = {
     "knee": r"\bknee\b|\b[ampl]?cl\b|\bmeniscus\b|\bpatell\w*",
     "ankle": r"\bankle\b",
     "achilles": r"\bachilles\b",
-    "hamstring": r"\bhamstring\b",
-    "calf": r"\bcalf\b",
-    "foot": r"\bfoot\b|\bfeet\b|\btoe\w*|\bplantar\b",
+    "hamstring": r"\bhamstrings?\b",
+    "calf": r"\b(?:calf|calves)\b",
+    "foot": r"\b(?:forefoot|midfoot|hindfoot|foot|feet|toe\w*|plantar)\b",
     "hip_groin": r"\bhip\b|\bgroin\b|\badductor\b",
     "thigh_quad": r"\bthigh\b|\bquad\w*",
-    "leg": r"\bleg\b|\btibia\b|\bfibula\b|\bshin\b",
+    "leg": r"\b(?:legs?|tibia\w*|fibula\w*|tib|fib|shin\w*)\b",
 }
 
 

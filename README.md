@@ -7,6 +7,11 @@
 > rebuilds calendar-based workload features, and preserves unknown labels.
 > `python main.py` now requires an explicit `--allow-legacy-data` opt-in to
 > reproduce the historical experiment. The v2 dataset is not yet wired into models.
+>
+> **Full-cohort update:** official 2022-23 logs now cover 539 players and all 1,230
+> games. A [separate injury-status archive audit](docs/INJURY_ARCHIVE.md) maps 10,692
+> records to official games and players, flags participation conflicts and
+> preserves unknown outcomes. No model has been retrained on these new inputs.
 
 ---
 
