@@ -1,5 +1,18 @@
 # 🏀 NBA Injury Prediction Using Machine Learning
 
+> **Data repair in progress:** the original metrics below describe the legacy
+> course experiment and are not validated forecasting results. The raw injury
+> source ends on April 16, 2023, while the old game logs extend through 2025.
+> Start with [the data repair workflow](docs/DATA_REPAIR.md). It audits identities,
+> rebuilds calendar-based workload features, and preserves unknown labels.
+> `python main.py` now requires an explicit `--allow-legacy-data` opt-in to
+> reproduce the historical experiment. The v2 dataset is not yet wired into models.
+>
+> **Full-cohort update:** official 2022-23 logs now cover 539 players and all 1,230
+> games. A [separate injury-status archive audit](docs/INJURY_ARCHIVE.md) maps 10,692
+> records to official games and players, flags participation conflicts and
+> preserves unknown outcomes. No model has been retrained on these new inputs.
+
 ---
 
 ## 📌 Problem Objective and Overview
@@ -36,7 +49,8 @@ https://www.kaggle.com/datasets/loganlauton/nba-injury-stats-1951-2023
 A processed, model-ready dataset is included in:
 
 `data/processed/`
-No additional preprocessing is required to run the pipeline
+This file belongs to the legacy experiment. Use the repair workflow linked above
+before treating any labels as valid forecasting outcomes.
 
 ---
 
@@ -92,7 +106,7 @@ PLOT_ALL = True     # display comparison metric graphs for all models (requires 
 
 Too run the full pipeline, run the following command in a virtual environment after installing the required dependencies.
 ```bash
-python main.py
+python main.py --allow-legacy-data
 ```
 
 ### Runtime
@@ -146,7 +160,7 @@ python main.py
 |-- .vscode             # Editor configuration
 ```
 
-## Result Summary
+## Legacy Result Summary (not validated forecasting results)
 
 | Model                       | Accuracy | Precision | **Recall** | F1 Score | **PR-AUC** | Interpretation                                                                                    |
 | --------------------------- | -------- | --------- | ---------- | -------- | ------ | ------------------------------------------------------------------------------------------------- |
@@ -160,7 +174,8 @@ python main.py
 - Traditional ML models struggle with precision-recall tradeoffs
 - Logistic regression achieves high recall but produces many false positives
 - Gradient boosting models improve accuracy but fail to capture temporal dynamics
-- The LSTM model significantly improves predictive performance by modeling player fatigue over time
+- The LSTM uses a different target horizon and split from the tabular models;
+  these reported scores do not establish that it performs better on a shared task.
 
 A detailed technical report is included:
 
@@ -171,3 +186,4 @@ A detailed technical report is included:
 ## License
 
 This project is for educational purposes. You may reuse or modify this code with proper attribution.
+

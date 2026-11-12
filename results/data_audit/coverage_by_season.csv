@@ -1,0 +1,4 @@
+SEASON_ID,rows,players,first_game,last_game,rows_horizon_after_source_end,unknown_labels,known_positive_labels
+22022,9485,168,2022-10-18,2023-04-09,0,9485,0
+22023,8889,156,2023-10-24,2024-04-14,8889,8889,0
+22024,7513,137,2024-10-22,2025-04-13,7513,7513,0

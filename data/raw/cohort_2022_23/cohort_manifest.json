@@ -1,0 +1,32 @@
+{
+  "cohort": "all_regular_season_player_appearances",
+  "complete": true,
+  "source": "https://stats.nba.com/stats/leaguegamelog",
+  "seasons": [
+    {
+      "season": "2022-23",
+      "games": 1230,
+      "rows": 25894,
+      "players": 539
+    }
+  ],
+  "row_count": 25894,
+  "games_sha256": "59519e940bb647c8d604ce0b067eb5e958dec98016a0ada75a85f306eb13b0b2",
+  "team_games_sha256": "fb9a290774449436ce18c08ed6b3332608d78f08d98dc6164ee1d33762476099",
+  "source_responses": {
+    "2022-23_P": {
+      "file": "official_player_logs.json",
+      "url": "https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom=&DateTo=&Direction=DESC&LeagueID=00&PlayerOrTeam=P&Season=2022-23&SeasonType=Regular%20Season&Sorter=DATE",
+      "sha256": "db7982f59983251d1a00b6ac0866098576dd6e7150694bc0efec696f97ed80c4",
+      "bytes": 4425447,
+      "retrieved_at": "2026-11-12T03:25:06.226Z"
+    },
+    "2022-23_T": {
+      "url": "https://stats.nba.com/stats/leaguegamelog?Counter=0&DateFrom=&DateTo=&Direction=DESC&LeagueID=00&PlayerOrTeam=T&Season=2022-23&SeasonType=Regular%20Season&Sorter=DATE",
+      "sha256": "f84763eb04fa82aec885d1f8b84aac080ad10a33053309d39eeec4bbc9c1e54f",
+      "bytes": 390234,
+      "retrieved_at": "2026-11-12T03:25:26.019Z"
+    }
+  },
+  "validation": "Full player endpoint responses; team schedule/date reconciliation; minimum five players per team-game; player minutes reconcile within rounding tolerance"
+}

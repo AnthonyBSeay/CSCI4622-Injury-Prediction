@@ -1,2 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Keep hash-bound source datasets identical on Windows and Unix checkouts.
+data/raw/** -text whitespace=cr-at-eol
+data/reference/*.csv -text

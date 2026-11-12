@@ -1,0 +1,5 @@
+{
+  "source": "data/raw/NBA_Injury_Stats.csv",
+  "description": "No complete reporting interval has been independently verified. Observed event dates alone must not authorize negative labels.",
+  "windows": []
+}
